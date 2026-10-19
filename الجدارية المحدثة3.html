@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" style="--c-bg: #121826; --c-card: #1f293d; --c-accent: #f59e0b; --c-text: #ffffff;"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المنصة الجدارية الذكية للساحة المدرسية</title>
+  
+  <!-- استدعاء الخطوط المعتمدة ومنها Readex Pro و Mada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&amp;family=Cairo:wght@400;600;700;800;900&amp;family=Changa:wght@400;600;700;800&amp;family=Mada:wght@400;600;700;800;900&amp;family=Readex+Pro:wght@400;500;600;700&amp;family=Tajawal:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= 3 أنماط رئيسية + نمط مخصص ================= */
+
+    /* 1. الأبيض والذهبي الملكي (فاتح ناصع) */
+    :root, body.theme-gold-white {
+      --bg-color: #fbfbfd;
+      --card-bg: #ffffff;
+      --card-border: #e6dfc8;
+      --text-main: #1e1b18;
+      --text-sub: #786f66;
+      --accent: #c59b27;
+      --accent-glow: rgba(197, 155, 39, 0.35);
+      --period-bg: #ffffff;
+      --period-border: #ede4d1;
+      --period-active-bg: #22201d;
+      --period-active-border: #c59b27;
+      --period-active-text: #ffffff;
+      --time-color: #8c6d1f;
+      --banner-bg: #22201d;
+      --banner-text: #f7e7be;
+      --modal-bg: #ffffff;
+      --modal-input-bg: #f9f8f5;
+      --modal-input-color: #1e1b18;
+      --modal-border: #ded8cb;
+    }
+
+    /* 2. الأخضر الداكن الزمردي */
+    body.theme-emerald-dark {
+      --bg-color: #0b1a17;
+      --card-bg: #122823;
+      --card-border: #1c3d36;
+      --text-main: #e8f5f1;
+      --text-sub: #86b2a5;
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.45);
+      --period-bg: #0f221e;
+      --period-border: #1c3d36;
+      --period-active-bg: #10b981;
+      --period-active-border: #34d399;
+      --period-active-text: #05231c;
+      --time-color: #6ee7b7;
+      --banner-bg: #15322b;
+      --banner-text: #a7f3d0;
+      --modal-bg: #0f221e;
+      --modal-input-bg: #162f28;
+      --modal-input-color: #e8f5f1;
+      --modal-border: #234d43;
+    }
+
+    /* 3. الكحلي الملكي الداكن */
+    body.theme-navy-dark {
+      --bg-color: #0c1222;
+      --card-bg: #151f38;
+      --card-border: #23335d;
+      --text-main: #ffffff;
+      --text-sub: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.45);
+      --period-bg: #111a30;
+      --period-border: #23335d;
+      --period-active-bg: #38bdf8;
+      --period-active-border: #bae6fd;
+      --period-active-text: #082f49;
+      --time-color: #7dd3fc;
+      --banner-bg: #1e293b;
+      --banner-text: #f8fafc;
+      --modal-bg: #111a30;
+      --modal-input-bg: #1b2644;
+      --modal-input-color: #ffffff;
+      --modal-border: #2c3f70;
+    }
+
+    /* 4. النمط المخصص (يتم التحكم بمتغيراته من كود جافاسكريبت) */
+    body.theme-custom {
+      --bg-color: var(--c-bg, #1a1a1a);
+      --card-bg: var(--c-card, #262626);
+      --card-border: var(--c-border, #404040);
+      --text-main: var(--c-text, #ffffff);
+      --text-sub: var(--c-sub, #a3a3a3);
+      --accent: var(--c-accent, #3b82f6);
+      --accent-glow: rgba(59, 130, 246, 0.45);
+      --period-bg: var(--c-card, #262626);
+      --period-border: var(--c-border, #404040);
+      --period-active-bg: var(--c-accent, #3b82f6);
+      --period-active-border: #ffffff;
+      --period-active-text: #ffffff;
+      --time-color: var(--c-accent, #3b82f6);
+      --banner-bg: var(--c-card, #262626);
+      --banner-text: var(--c-text, #ffffff);
+      --modal-bg: var(--c-card, #262626);
+      --modal-input-bg: var(--c-bg, #1a1a1a);
+      --modal-input-color: var(--c-text, #ffffff);
+      --modal-border: var(--c-border, #404040);
+    }
+
+    /* فئات الخطوط */
+    body.font-readex { --app-font: 'Readex Pro', sans-serif; }
+    body.font-mada { --app-font: 'Mada', sans-serif; }
+    body.font-cairo { --app-font: 'Cairo', sans-serif; }
+    body.font-tajawal { --app-font: 'Tajawal', sans-serif; }
+    body.font-almarai { --app-font: 'Almarai', sans-serif; }
+    body.font-changa { --app-font: 'Changa', sans-serif; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      font-family: inherit;
+    }
+
+    body {
+      font-family: var(--app-font, 'Readex Pro', sans-serif);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      height: 100vh;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.4vh 2.5vw 0.6vh 2.5vw;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    input, select, button, textarea {
+      font-family: var(--app-font, 'Readex Pro', sans-serif) !important;
+    }
+
+    /* الرأس العلوي */
+    header {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1vh 2.5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 10.5vh;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand-mark {
+      width: 8px;
+      height: 5vh;
+      background: var(--accent);
+      border-radius: 99px;
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+    .brand-title {
+      font-size: 2.8vh;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .brand-sub {
+      font-size: 1.5vh;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .clock-widget {
+      cursor: pointer;
+      text-align: left;
+      direction: ltr;
+      padding: 4px 14px;
+      border-radius: 16px;
+      transition: transform 0.2s;
+    }
+    .clock-widget:active {
+      transform: scale(0.96);
+    }
+    .clock-time {
+      font-size: 4vh;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+    .clock-time span {
+      font-size: 2.1vh;
+      color: var(--accent);
+    }
+    .clock-date {
+      font-size: 1.4vh;
+      color: var(--text-sub);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* شريط الحصص */
+    .periods-shelf-container {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1.4vh 1.8vw;
+      height: 34vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+    .shelf-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.8vh;
+      border-bottom: 2px solid var(--card-border);
+    }
+    .shelf-title {
+      font-size: 2.1vh;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .shelf-badge {
+      font-size: 1.4vh;
+      font-weight: 700;
+      padding: 5px 16px;
+      border-radius: 99px;
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .periods-horizontal-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      gap: 1vw;
+      height: 24.5vh;
+      align-items: stretch;
+    }
+    .period-card-box {
+      background: var(--period-bg);
+      border: 2px solid var(--period-border);
+      border-radius: 20px;
+      padding: 1.2vh 0.8vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .period-card-box.active {
+      background: var(--period-active-bg) !important;
+      border: 2.5px solid var(--period-active-border) !important;
+      color: var(--period-active-text) !important;
+      box-shadow: 0 0 25px var(--accent-glow);
+      transform: translateY(-4px) scale(1.03);
+    }
+    .period-card-box.break {
+      background: rgba(197, 155, 39, 0.12);
+      border-color: var(--accent);
+    }
+    .period-card-box.done {
+      opacity: 0.35;
+    }
+
+    .p-title-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+    }
+    .p-title-prefix {
+      font-size: 1.8vh;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+    .p-title-name {
+      font-size: 2.6vh;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .p-time {
+      font-size: 2.3vh;
+      font-weight: 700;
+      color: var(--time-color);
+      direction: ltr;
+      letter-spacing: 0.5px;
+    }
+    .period-card-box.active .p-time {
+      color: var(--period-active-text) !important;
+    }
+
+    .p-state-tag {
+      font-size: 1.35vh;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 99px;
+      background: rgba(0, 0, 0, 0.08);
+      display: inline-block;
+    }
+    .period-card-box.active .p-state-tag {
+      background: rgba(255, 255, 255, 0.25);
+      color: var(--period-active-text);
+    }
+
+    /* كارت التحفيز */
+    .inspire-center-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1.6vh 3vw;
+      height: 35vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+    .quote-big-ar {
+      font-size: 3.6vh;
+      font-weight: 800;
+      line-height: 1.45;
+      margin-bottom: 1vh;
+      max-width: 90%;
+    }
+    .quote-big-en {
+      font-size: 2vh;
+      font-weight: 600;
+      color: var(--text-sub);
+      direction: ltr;
+    }
+
+    /* شريط الإعلانات التفاعلي */
+    .bottom-announcement-bar {
+      background: var(--banner-bg);
+      color: var(--banner-text);
+      border-radius: 18px;
+      padding: 0.8vh 2vw;
+      height: 7vh;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 1.9vh;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .banner-flag {
+      background: rgba(255, 255, 255, 0.22);
+      padding: 4px 16px;
+      border-radius: 99px;
+      font-size: 1.5vh;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+    .banner-content-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.5px;
+    }
+
+    /* توقيع المصمم */
+    .designer-credit-bar {
+      text-align: center;
+      font-size: 1.25vh;
+      font-weight: 600;
+      color: var(--text-sub);
+      opacity: 0.85;
+      padding-top: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    /* إعلان ملء الشاشة */
+    #fullscreen-announcement-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg-color);
+      color: var(--text-main);
+      z-index: 999999;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6vh 6vw;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .fs-header {
+      font-size: 3.8vh;
+      font-weight: 800;
+      color: #ffffff;
+      background: var(--accent);
+      padding: 1vh 3.5vw;
+      border-radius: 99px;
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+    .fs-message {
+      font-size: 6.5vh;
+      font-weight: 800;
+      line-height: 1.4;
+      max-width: 90%;
+    }
+    .fs-footer {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 2.4vh;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+    .fs-close-btn {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 99px;
+      font-size: 1.8vh;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* لوحة التحكم */
+    #settings-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-sheet {
+      background: var(--modal-bg);
+      color: var(--text-main);
+      border: 2px solid var(--modal-border);
+      border-radius: 26px;
+      width: 100%;
+      max-width: 880px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .modal-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--modal-border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .sec-tag {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 16px 0 8px 0;
+      border-right: 4px solid var(--accent);
+      padding-right: 8px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-sub);
+    }
+    .input-field {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 2px solid var(--modal-border);
+      background: var(--modal-input-bg);
+      color: var(--modal-input-color);
+      font-size: 14px;
+      font-weight: 700;
+      outline: none;
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--modal-input-bg);
+      border: 2px solid var(--modal-border);
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+    .audio-test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .btn-test-sound {
+      background: var(--modal-input-bg);
+      border: 2px solid var(--modal-border);
+      color: var(--modal-input-color);
+      padding: 10px 8px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-test-sound:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .save-action-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 14px;
+      box-shadow: 0 0 16px var(--accent-glow);
+    }
+  </style>
+<link id="font-baloo-bhaijaan-link" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&amp;display=swap"><style>
+  body.font-baloo-bhaijaan { --app-font: 'Baloo Bhaijaan 2', cursive, sans-serif !important; }
+</style><style>
+  body.font-baloo-bhaijaan { --app-font: 'Baloo Bhaijaan 2', cursive, sans-serif !important; }
+</style><style>
+  body.font-baloo-bhaijaan { --app-font: 'Baloo Bhaijaan 2', cursive, sans-serif !important; }
+</style><style>
+  body.font-baloo-bhaijaan { --app-font: 'Baloo Bhaijaan 2', cursive, sans-serif !important; }
+</style><style>
+  body.font-baloo-bhaijaan { --app-font: 'Baloo Bhaijaan 2', cursive, sans-serif !important; }
+</style></head>
+<body class="theme-emerald-dark font-readex">
+
+  <!-- ================= الرأس ================= -->
+  <header>
+    <div class="brand-box">
+      <div class="brand-mark"></div>
+      <div>
+        <div class="brand-title" id="ui-school-name">مدرسة الموهوبين</div>
+        <div class="brand-sub" id="ui-school-sub">المنصة الجدارية التفاعلية للساحة المدرسية</div>
+      </div>
+    </div>
+
+    <div class="clock-widget" id="secret-trigger" title="اضغط 9 مرات لفتح لوحة التحكم">
+      <div class="clock-time" id="live-clock">10:00 <span>PM</span></div>
+      <div class="clock-date" id="live-date">الجمعة، ٢ أكتوبر ٢٠٢٦</div>
+    </div>
+  </header>
+
+  <!-- ================= شريط الحصص ================= -->
+  <section class="periods-shelf-container">
+    <div class="shelf-title-bar">
+      <div class="shelf-title">
+        <span>🕒</span>
+        <span>الجدول الزمني للحصص الدراسية</span>
+      </div>
+      <div class="shelf-badge" id="ui-status-pill">انتهى اليوم الدراسي</div>
+    </div>
+    <div class="periods-horizontal-grid" id="periods-grid-shelf"><div class="period-card-box done">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">الاصطفاف</span>
+          <span class="p-title-name">الصباحي</span>
+        </div>
+        <div class="p-time">07:00 - 07:15</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div><div class="period-card-box done">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">الحصة</span>
+          <span class="p-title-name">الأولى</span>
+        </div>
+        <div class="p-time">07:15 - 08:00</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div><div class="period-card-box done">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">الحصة</span>
+          <span class="p-title-name">الثانية</span>
+        </div>
+        <div class="p-time">08:00 - 08:45</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div><div class="period-card-box done">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">الحصة</span>
+          <span class="p-title-name">الثالثة</span>
+        </div>
+        <div class="p-time">08:45 - 09:30</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div><div class="period-card-box done break">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">فترة</span>
+          <span class="p-title-name">☕ الفسحة</span>
+        </div>
+        <div class="p-time">09:30 - 10:00</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div><div class="period-card-box done">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">الحصة</span>
+          <span class="p-title-name">الرابعة</span>
+        </div>
+        <div class="p-time">10:00 - 10:45</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div><div class="period-card-box done">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">الحصة</span>
+          <span class="p-title-name">الخامسة</span>
+        </div>
+        <div class="p-time">10:45 - 11:30</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div><div class="period-card-box done">
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">الحصة</span>
+          <span class="p-title-name">السادسة</span>
+        </div>
+        <div class="p-time">11:30 - 12:15</div>
+        <div><span class="p-state-tag">انتهت ✓</span></div>
+      </div></div>
+  </section>
+
+  <!-- ================= كارت التحفيز ================= -->
+  <div id="exam-inspire-flex-wrapper" style="display: flex; gap: 1.4vw; width: 100%; height: 35vh; align-items: stretch; transition: 0.3s; flex-direction: row;"><div id="ui-exam-board-card" style="flex: 0 0 68%; width: 68%; height: 100%; background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 24px; padding: 1.4vh 1.6vw; display: flex; flex-direction: column; justify-content: flex-start; box-shadow: rgba(0, 0, 0, 0.06) 0px 8px 25px; box-sizing: border-box; overflow: hidden;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--card-border); padding-bottom:0.8vh; margin-bottom:0.8vh;">
+          <div style="font-size:2.2vh; font-weight:800; display:flex; align-items:center; gap:8px; color:var(--text-main);"><span>📝</span><span>جدول الاختبارات الشهرية ( الاثنين)</span></div>
+          <span style="font-size:1.3vh; font-weight:700; padding:4px 14px; border-radius:99px; background:rgba(0,0,0,0.08); color:var(--text-sub);">التقييم المستمر</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.8vh; flex:1; justify-content:space-evenly;">
+          
+        <div style="display:grid; grid-template-columns: 1.2fr auto 1.2fr; align-items:center; background:var(--modal-input-bg, rgba(255,255,255,0.04)); padding:0.8vh 1.2vw; border-radius:14px; border:1.5px solid var(--modal-border, rgba(255,255,255,0.08));">
+          <div style="font-weight:800; font-size:2vh; color:var(--text-main); text-align:right;">أول متوسط</div>
+          <div style="background:var(--accent); color:#ffffff; padding:0.25vh 1.2vw; border-radius:99px; font-size:1.5vh; font-weight:800; text-align:center; min-width:85px;">الثالثة</div>
+          <div style="font-weight:900; font-size:2.1vh; color:var(--accent); text-align:left;">لغتي</div>
+        </div>
+      
+        </div>
+      </div><section class="inspire-center-card" style="flex: 0 0 calc(32% - 1.2vw); width: calc(32% - 1.2vw); height: 100%; margin: 0px; background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 24px; padding: 1.4vh 1.6vw; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-sizing: border-box;">
+    <div class="quote-big-ar" id="ui-quote-ar" style="font-size: 2.4vh; line-height: 1.4; margin-bottom: 0.8vh;">"الشغف المستمر والفضول المعرفي هما جناحا كل طالب موهوب نحو القمة."</div>
+    <div class="quote-big-en" id="ui-quote-en" style="font-size: 1.5vh;">"Continuous passion and curiosity drive brilliant minds forward."</div>
+  </section></div>
+
+  <!-- ================= شريط التنبيه السفلي ================= -->
+  <footer class="bottom-announcement-bar">
+    <span class="banner-flag" id="ui-banner-flag">تنبيه واستدعاء 📢</span>
+    <span class="banner-content-text" id="ui-strip-text">تذكير لجميع الطلاب: موعد إغلاق التسجيل في الأولمبياد الوطني للعلوم يوم الثلاثاء القادم.</span>
+  </footer>
+
+  <!-- ================= توقيع المصمم الجديد ================= -->
+  <div class="designer-credit-bar">
+    بواسطة نايف الشومر
+  </div>
+
+  <!-- ================= إعلان ملء الشاشة ================= -->
+  <div id="fullscreen-announcement-overlay">
+    <div class="fs-header" id="fs-display-header">إعلان وتنبيه 📢</div>
+    <div class="fs-message" id="fs-display-text">نص الإعلان الكبير هنا</div>
+    <div class="fs-footer">
+      <span>متبقي على الإغلاق: <strong id="fs-countdown-timer">--:--</strong></span>
+      <button class="fs-close-btn" onclick="closeFullscreenAnnouncement()">إغلاق الشاشة الآن ✕</button>
+    </div>
+  </div>
+
+  <!-- ================= لوحة التحكم المحدثة ================= -->
+  <div id="settings-modal" style="display: none;">
+    <div class="modal-sheet">
+      <div class="modal-header-bar">
+        <h2>⚙️ لوحة التخصيص والألوان والأجراس الصوتية</h2>
+        <button style="background:none; border:none; font-size:24px; cursor:pointer; color:var(--text-main);" onclick="closeModal()">✕</button>
+      </div>
+
+      <!-- 1. الأنماط الثلاثة + النمط المخصص والخطوط -->
+      <div class="sec-tag">🎨 أنماط الألوان والخطوط المعتمدة</div>
+      <div class="form-grid">
+        <div class="input-group">
+          <label>نمط الألوان المعتمد</label>
+          <select id="cfg-theme" class="input-field" onchange="toggleCustomColorsSection()">
+            <option value="theme-gold-white">1. أبيض وذهبي ملكي (فاتح راقي)</option>
+            <option value="theme-emerald-dark">2. أخضر داكن زمردي (Emerald Dark)</option>
+            <option value="theme-navy-dark">3. كحلي ملكي داكن (Midnight Navy)</option>
+            <option value="theme-custom">4. 🛠️ نمط مخصص (تحديد الألوان يدويًا)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>نوع الخط</label>
+          <select id="cfg-font" class="input-field">
+            <option value="font-readex">خط ريدكس برو الحديث (Readex Pro)</option>
+            <option value="font-mada">خط مدى / سكالا مجلة العربي (Mada)</option>
+            <option value="font-cairo">خط القاهرة الجريء (Cairo)</option>
+            <option value="font-tajawal">خط تجوال العصري (Tajawal)</option>
+            <option value="font-changa">خط تشانغا الهندسي (Changa)</option>
+            <option value="font-almarai">خط المراعي الرسمي (Almarai)</option>
+          <option value="font-baloo-bhaijaan">خط بالو بهيجان العربي (Baloo Bhaijaan 2)</option></select>
+        </div>
+      </div>
+
+      <!-- تخصيص ألوان النمط المخصص -->
+      <div id="box-custom-colors" style="display:none; background:var(--modal-input-bg); border:2px solid var(--modal-border); border-radius:14px; padding:12px; margin-bottom:12px;">
+        <label style="font-weight:700; font-size:13px; margin-bottom:8px; display:block;">🎨 ضبط باليت النمط المخصص:</label>
+        <div class="form-grid">
+          <div class="input-group">
+            <label>لون الخلفية الرئيسية</label>
+            <input type="color" id="cfg-custom-bg" class="input-field" value="#121826" style="height:42px; padding:2px;">
+          </div>
+          <div class="input-group">
+            <label>لون البطاقات</label>
+            <input type="color" id="cfg-custom-card" class="input-field" value="#1f293d" style="height:42px; padding:2px;">
+          </div>
+          <div class="input-group">
+            <label>اللون التمييزي (Accent)</label>
+            <input type="color" id="cfg-custom-accent" class="input-field" value="#f59e0b" style="height:42px; padding:2px;">
+          </div>
+          <div class="input-group">
+            <label>لون النصوص الأساسية</label>
+            <input type="color" id="cfg-custom-text" class="input-field" value="#ffffff" style="height:42px; padding:2px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. نظام الأجراس الصوتية التفاعلي -->
+      <div class="sec-tag">🔔 نظام الأجراس الصوتية للساحة المدرسية (أكثر من 3 ثوانٍ)</div>
+      <div class="toggle-row">
+        <input type="checkbox" id="cfg-sound-enabled" style="width: 18px; height: 18px;">
+        <label for="cfg-sound-enabled" style="margin: 0; font-weight: 700; cursor: pointer;">تمكين أصوات الأجراس تلقائياً عند الانتقال بين الحصص</label>
+      </div>
+      <div style="background: var(--modal-input-bg); border: 2px solid var(--modal-border); border-radius: 14px; padding: 12px; margin-bottom: 12px;">
+        <label style="font-size:12px; font-weight:700; color:var(--text-sub); display:block; margin-bottom:6px;">تجربة واستماع لنغمات الأجراس المعتمدة (مدة كل رنين +3 ثوانٍ):</label>
+        <div id="cfg-sound-choices-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px;">
+      <div class="input-group">
+        <label>نغمة بداية الحصة</label>
+        <select id="cfg-start-bell" class="input-field">
+          <option value="westminster">وستمنستر (Westminster)</option>
+          <option value="chime">جرس تصاعدي (Classic Chime)</option>
+          <option value="zen">أجراس زن (Zen Chime)</option>
+          <option value="hammer">جرس ميكانيكي (School Bell)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>نغمة نهاية الحصة</label>
+        <select id="cfg-end-bell" class="input-field">
+          <option value="zen">أجراس زن هادئة (Zen Chime)</option>
+          <option value="westminster">وستمنستر هادئ (Westminster)</option>
+          <option value="descending">جرس تنازلي (Descending Chime)</option>
+          <option value="hammer">جرس ميكانيكي (School Bell)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>نغمة الفسحة</label>
+        <select id="cfg-break-bell" class="input-field">
+          <option value="upbeat">نغمة حيوية ومرحة (Upbeat Chime)</option>
+          <option value="westminster_full">وستمنستر كامل (Big Ben)</option>
+          <option value="zen_deep">رنين زن ثلاثي (Deep Zen)</option>
+        </select>
+      </div>
+    </div><div class="audio-test-grid">
+          <button type="button" class="btn-test-sound" onclick="playPeriodStartBell()">🔔 جرس بداية الحصة</button>
+          <button type="button" class="btn-test-sound" onclick="playPeriodEndBell()">🔕 جرس نهاية الحصة</button>
+          <button type="button" class="btn-test-sound" onclick="playBreakBell()">☕ نغمة بداية الفسحة</button>
+        </div>
+      </div>
+
+      <!-- 3. تخصيص شريط التنبيه السفلي والوسم -->
+      <div class="sec-tag">📢 شريط التنبيه السفلي والإعلانات</div>
+      <div class="form-grid">
+        <div class="input-group">
+          <label>وسم الشريط السفلي (الكلمة المعنونة)</label>
+          <input type="text" id="cfg-banner-flag" class="input-field" value="تنبيه واستدعاء 📢">
+        </div>
+        <div class="input-group">
+          <label>نص الشريط الإعلاني المستمر</label>
+          <input type="text" id="cfg-strip-text" class="input-field">
+        </div>
+      </div>
+
+      <!-- بث إعلان ملء الشاشة -->
+      <div style="background: var(--modal-input-bg); border: 2px solid var(--modal-border); border-radius: 14px; padding: 14px; margin-top: 8px;">
+        <label style="font-weight:800; font-size:13px; margin-bottom:8px; display:block;">🚀 بث إعلان ملء الشاشة (Fullscreen)</label>
+        <div class="form-grid">
+          <div class="input-group">
+            <label>عنوان الإعلان</label>
+            <input type="text" id="cfg-fs-header" class="input-field" value="تنبيه واستدعاء عاجل 📢">
+          </div>
+          <div class="input-group">
+            <label>مدة البث</label>
+            <select id="cfg-fs-duration" class="input-field">
+              <option value="5">5 دقائق</option>
+              <option value="10">10 دقائق</option>
+              <option value="30">30 دقيقة</option>
+              <option value="60">ساعة كاملة</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group" style="margin-bottom: 10px;">
+          <label>نص الإعلان الكبير</label>
+          <input type="text" id="cfg-fs-text" class="input-field" placeholder="اكتب نص الإعلان الكبير...">
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 14px;"><button type="button" onclick="triggerFullscreenAnnouncement()" class="save-action-btn" style="background: rgb(234, 88, 12); margin: 0px; padding: 12px; flex: 1 1 0%;">✓ تأكيد التغييرات</button></div>
+      </div>
+
+      <!-- 4. محرك الحصص والجدول -->
+      <div class="sec-tag">⏱️ محرك الحصص والجدول الزمني</div>
+      <div class="form-grid">
+        <div class="input-group">
+          <label>طريقة التحديد</label>
+          <select id="cfg-mode" class="input-field">
+            <option value="auto">تلقائي (بحسب ساعة الجهاز الآن)</option>
+            <option value="manual">يدوي (أنا أختار الحصة النشطة)</option>
+          </select>
+        </div>
+        <div class="input-group" id="box-manual-select" style="display: none;">
+          <label>الحصة النشطة يدوياً</label>
+          <select id="cfg-manual-period" class="input-field">
+            <option value="-1">انتهى اليوم الدراسي</option>
+            <option value="assembly">الاصطفاف الصباحي</option>
+            <option value="1">الحصة الأولى</option>
+            <option value="2">الحصة الثانية</option>
+            <option value="3">الحصة الثالثة</option>
+            <option value="break">الفسحة</option>
+            <option value="4">الحصة الرابعة</option>
+            <option value="5">الحصة الخامسة</option>
+            <option value="6">الحصة السادسة</option>
+            <option value="extra">الفترة الإضافية / السابعة</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="cfg-has-assembly" style="width: 18px; height: 18px;">
+        <label for="cfg-has-assembly" style="margin: 0; font-weight: 700; cursor: pointer;">تفعيل الاصطفاف الصباحي والإذاعة</label>
+      </div>
+
+      <div class="form-grid">
+        <div class="input-group">
+          <label>وقت بداية أول حدث</label>
+          <input type="time" id="cfg-start-time" class="input-field" value="07:00">
+        </div>
+        <div class="input-group" id="box-assembly-duration" style="display: block;">
+          <label>مدة الطابور (دقيقة)</label>
+          <input type="number" id="cfg-assembly-duration" class="input-field" value="15">
+        </div>
+        <div class="input-group">
+          <label>مدة الحصة (دقيقة)</label>
+          <input type="number" id="cfg-period-duration" class="input-field" value="45">
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="input-group">
+          <label>مكان الفسحة</label>
+          <select id="cfg-break-after" class="input-field">
+            <option value="2">بعد الحصة الثانية</option>
+            <option value="3" selected="">بعد الحصة الثالثة</option>
+            <option value="4">بعد الحصة الرابعة</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>مدة الفسحة (دقيقة)</label>
+          <input type="number" id="cfg-break-duration" class="input-field" value="30">
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="cfg-has-extra" style="width: 18px; height: 18px;">
+        <label for="cfg-has-extra" style="margin: 0; font-weight: 700; cursor: pointer;">إضافة فترة بعد السادسة (حصة سابعة / صلاة / نشاط)</label>
+      </div>
+
+      <div class="form-grid" id="box-extra-period" style="display: none;">
+        <div class="input-group">
+          <label>مسمى الفترة الإضافية</label>
+          <input type="text" id="cfg-extra-name" class="input-field" value="الحصة السابعة">
+        </div>
+        <div class="input-group">
+          <label>مدتها (بالدقائق)</label>
+          <input type="number" id="cfg-extra-duration" class="input-field" value="45">
+        </div>
+      </div>
+
+      <!-- 5. الهوية والتحفيز -->
+      <div class="sec-tag">💬 اسم المدرسة والعبارات</div>
+      <div class="form-grid">
+        <div class="input-group">
+          <label>اسم المدرسة</label>
+          <input type="text" id="cfg-school-name" class="input-field">
+        </div>
+        <div class="input-group">
+          <label>الوصف الفرعي</label>
+          <input type="text" id="cfg-school-sub" class="input-field">
+        </div>
+      </div>
+      <div class="input-group" style="margin-bottom: 8px;">
+        <label>عبارة التحفيز (بالعربية)</label>
+        <input type="text" id="cfg-quote-ar" class="input-field">
+      </div>
+      <div class="input-group">
+        <label>عبارة التحفيز (بالإنجليزية)</label>
+        <input type="text" id="cfg-quote-en" class="input-field" style="direction:ltr;">
+      </div>
+
+      
+    <div id="cfg-exam-clean-box" style="background: var(--modal-input-bg); border: 2px solid var(--modal-border); border-radius: 18px; padding: 16px; margin: 16px 0px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px; margin-bottom:12px;">
+        <label style="font-weight:800; font-size:15px; color:var(--accent); display:flex; align-items:center; gap:8px; cursor:pointer;" for="cfg-chk-exam-state">
+          <span>📝</span>
+          <span>تفعيل جدول الاختبارات الشهرية (ثلثين المساحة)</span>
+        </label>
+        <input type="checkbox" id="cfg-chk-exam-state" checked="" style="width:22px; height:22px; cursor:pointer; accent-color:var(--accent);">
+      </div>
+
+      <div id="cfg-exam-inputs-wrapper" style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <label style="font-size:13px; font-weight:700; color:var(--text-sub); white-space:nowrap;">تخصيص اليوم / العنوان:</label>
+          <input type="text" id="cfg-exam-day-title" class="input-field" value="الثلاثاء" placeholder="مثال: يوم الاثنين أو اليوم" style="flex:1; padding:8px 12px; font-size:13px;">
+        </div>
+
+        <div id="cfg-exam-rows-list" style="display:flex; flex-direction:column; gap:8px;"><div class="clean-exam-edit-row" style="display: flex; gap: 8px; align-items: center;">
+        <button type="button" class="del-btn" style="background:#ef4444; color:#fff; border:none; border-radius:10px; width:36px; height:36px; cursor:pointer; font-weight:bold; font-size:14px; flex-shrink:0;">✕</button>
+        <input type="text" placeholder="المادة (مثال: رياضيات)" value="لغتي" class="inp-s input-field" style="flex:1; padding:8px 10px; font-size:13px;">
+        <input type="text" placeholder="الحصة (مثال: الحصة 2)" value="الثالثة" class="inp-p input-field" style="flex:1; padding:8px 10px; font-size:13px;">
+        <input type="text" placeholder="الصف (مثال: أول متوسط)" value="أول متوسط" class="inp-g input-field" style="flex:1.2; padding:8px 10px; font-size:13px;">
+      </div></div>
+        
+        <button type="button" id="cfg-btn-add-row" style="padding:10px; border-radius:12px; background:rgba(255,255,255,0.05); border:2px dashed var(--accent); color:var(--accent); font-weight:800; cursor:pointer; font-size:13px; transition:0.2s;">
+          + إضافة صف اختبار جديد
+        </button>
+      </div>
+    </div><div id="proper-modal-footer-actions" style="display: flex; gap: 12px; margin-top: 20px; width: 100%;"><button class="save-action-btn" onclick="saveSettings()" type="button" style="flex: 1 1 0%; padding: 15px; border-radius: 14px; background: var(--accent, #f59e0b); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; font-size: 16px; font-weight: 800; cursor: pointer; margin: 0px;">✓ تأكيد التغييرات</button><button id="btn-cancel-changes" type="button" style="flex: 1 1 0%; padding: 15px; border-radius: 14px; background: rgb(71, 85, 105); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; font-size: 16px; font-weight: 800; cursor: pointer; transition: 0.2s;">✕ إلغاء التغييرات</button></div></div>
+  </div>
+
+  <!-- ================= منطق التشغيل والمؤثرات الصوتية ================= -->
+  <script>
+    const defaultConfig = {
+      theme: 'theme-gold-white',
+      font: 'font-readex',
+      customBg: '#121826',
+      customCard: '#1f293d',
+      customAccent: '#f59e0b',
+      customText: '#ffffff',
+      soundEnabled: true,
+      bannerFlag: 'تنبيه واستدعاء 📢',
+      stripText: 'تذكير لجميع الطلاب: موعد إغلاق التسجيل في الأولمبياد الوطني للعلوم يوم الثلاثاء القادم.',
+      mode: 'auto',
+      manualPeriod: '1',
+      hasAssembly: true,
+      assemblyDuration: 15,
+      startTime: '07:00',
+      periodDuration: 45,
+      breakAfter: 3,
+      breakDuration: 30,
+      hasExtra: false,
+      extraName: 'الحصة السابعة',
+      extraDuration: 45,
+      schoolName: 'مدرسة الموهوبين',
+      schoolSub: 'المنصة الجدارية التفاعلية للساحة المدرسية',
+      quoteAr: 'الشغف المستمر والفضول المعرفي هما جناحا كل طالب موهوب نحو القمة.',
+      quoteEn: 'Continuous passion and curiosity drive brilliant minds forward.'
+    };
+
+    let config = { ...defaultConfig };
+    let periodsTimeline = [];
+    let lastActivePeriodId = null;
+
+    // محرك الصوت عبر Web Audio API (أصوات نقية تدوم أكثر من 3 ثوانٍ)
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function createChimeTone(ctx, freq, startTime, duration, gainVal = 0.3) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, startTime);
+      
+      // نغمة جرس طبيعية ذات ارتداد تدريجي
+      gain.gain.setValueAtTime(0, startTime);
+      gain.gain.linearRampToValueAtTime(gainVal, startTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+      
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      
+      osc.start(startTime);
+      osc.stop(startTime + duration);
+    }
+
+    // 1. جرس بداية الحصة (+3.6 ثوانٍ: نغمات تصاعدية ملكية)
+    function playPeriodStartBell() {
+      const ctx = getAudioContext();
+      const t = ctx.currentTime;
+      // نغمات تصاعدية مريحة تعلن البداية: Do - Mi - Sol - Do عالي
+      createChimeTone(ctx, 523.25, t + 0.0, 3.2, 0.35); // C5
+      createChimeTone(ctx, 659.25, t + 0.6, 3.2, 0.35); // E5
+      createChimeTone(ctx, 783.99, t + 1.2, 3.2, 0.35); // G5
+      createChimeTone(ctx, 1046.50, t + 1.8, 3.5, 0.40); // C6
+    }
+
+    // 2. جرس نهاية الحصة (+3.6 ثوانٍ: نغمات تنازلية هادئة تعلن الانتهاء)
+    function playPeriodEndBell() {
+      const ctx = getAudioContext();
+      const t = ctx.currentTime;
+      createChimeTone(ctx, 880.00, t + 0.0, 3.2, 0.35); // A5
+      createChimeTone(ctx, 783.99, t + 0.7, 3.2, 0.35); // G5
+      createChimeTone(ctx, 659.25, t + 1.4, 3.2, 0.35); // E5
+      createChimeTone(ctx, 523.25, t + 2.1, 3.5, 0.40); // C5
+    }
+
+    // 3. نغمة بداية الفسحة (+3.8 ثوانٍ: نغمة مبهجة سريعة ومرتدة)
+    function playBreakBell() {
+      const ctx = getAudioContext();
+      const t = ctx.currentTime;
+      createChimeTone(ctx, 587.33, t + 0.0, 3.0, 0.3); // D5
+      createChimeTone(ctx, 739.99, t + 0.4, 3.0, 0.3); // F#5
+      createChimeTone(ctx, 880.00, t + 0.8, 3.2, 0.35); // A5
+      createChimeTone(ctx, 1174.66, t + 1.3, 3.6, 0.4); // D6
+      createChimeTone(ctx, 880.00, t + 1.9, 3.2, 0.3); // A5
+    }
+
+    function parseToMins(tStr) {
+      const [h, m] = tStr.split(':').map(Number);
+      return h * 60 + m;
+    }
+
+    function formatFromMins(mins) {
+      let h = Math.floor(mins / 60) % 24;
+      const m = mins % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    function constructPeriodsTimeline() {
+      periodsTimeline = [];
+      let cursor = parseToMins(config.startTime);
+
+      if (config.hasAssembly) {
+        const end = cursor + Number(config.assemblyDuration);
+        periodsTimeline.push({
+          id: 'assembly',
+          type: 'assembly',
+          prefix: 'الاصطفاف',
+          name: 'الصباحي',
+          start: cursor,
+          end: end,
+          timeText: `${formatFromMins(cursor)} - ${formatFromMins(end)}`
+        });
+        cursor = end;
+      }
+
+      const names = ['', 'الأولى', 'الثانية', 'الثالثة', 'الرابعة', 'الخامسة', 'السادسة'];
+      const breakIdx = Number(config.breakAfter);
+
+      for (let i = 1; i <= 6; i++) {
+        const end = cursor + Number(config.periodDuration);
+        periodsTimeline.push({
+          id: String(i),
+          type: 'period',
+          prefix: 'الحصة',
+          name: names[i],
+          start: cursor,
+          end: end,
+          timeText: `${formatFromMins(cursor)} - ${formatFromMins(end)}`
+        });
+        cursor = end;
+
+        if (i === breakIdx) {
+          const breakEnd = cursor + Number(config.breakDuration);
+          periodsTimeline.push({
+            id: 'break',
+            type: 'break',
+            prefix: 'فترة',
+            name: '☕ الفسحة',
+            start: cursor,
+            end: breakEnd,
+            timeText: `${formatFromMins(cursor)} - ${formatFromMins(breakEnd)}`
+          });
+          cursor = breakEnd;
+        }
+      }
+
+      if (config.hasExtra) {
+        const end = cursor + Number(config.extraDuration);
+        periodsTimeline.push({
+          id: 'extra',
+          type: 'extra',
+          prefix: 'فترة',
+          name: config.extraName || 'إضافية',
+          start: cursor,
+          end: end,
+          timeText: `${formatFromMins(cursor)} - ${formatFromMins(end)}`
+        });
+      }
+    }
+
+    function renderHorizontalShelf() {
+      const grid = document.getElementById('periods-grid-shelf');
+      grid.innerHTML = '';
+
+      const now = new Date();
+      const nowMin = now.getHours() * 60 + now.getMinutes();
+      let isDayActive = false;
+      let currentActiveId = null;
+
+      periodsTimeline.forEach(item => {
+        let tag = '--';
+        let cls = '';
+
+        if (config.mode === 'manual') {
+          if (config.manualPeriod === '-1') {
+            tag = 'انتهى اليوم';
+            cls = 'done';
+          } else if (config.manualPeriod === item.id) {
+            tag = 'جارية الآن ⚡';
+            cls = 'active';
+            isDayActive = true;
+            currentActiveId = item.id;
+          }
+        } else {
+          if (nowMin >= item.end) {
+            tag = 'انتهت ✓';
+            cls = 'done';
+          } else if (nowMin >= item.start && nowMin < item.end) {
+            const left = item.end - nowMin;
+            tag = `جارية (${left} د)`;
+            cls = 'active';
+            isDayActive = true;
+            currentActiveId = item.id;
+          } else {
+            tag = 'قادمة';
+            isDayActive = true;
+          }
+        }
+
+        if (item.type === 'break' && cls !== 'active') {
+          cls += ' break';
+          if (tag === '--') tag = 'استراحة';
+        }
+
+        const card = document.createElement('div');
+        card.className = `period-card-box ${cls}`;
+        card.innerHTML = `
+          <div class="p-title-wrap">
+            <span class="p-title-prefix">${item.prefix}</span>
+            <span class="p-title-name">${item.name}</span>
+          </div>
+          <div class="p-time">${item.timeText}</div>
+          <div><span class="p-state-tag">${tag}</span></div>
+        `;
+        grid.appendChild(card);
+      });
+
+      document.getElementById('ui-status-pill').textContent = isDayActive ? 'الدوام جاري الآن' : 'انتهى اليوم الدراسي';
+
+      // فحص تغير الحصة وإطلاق الجرس التلقائي
+      if (config.soundEnabled && lastActivePeriodId !== null && currentActiveId !== lastActivePeriodId) {
+        if (currentActiveId === 'break') {
+          playBreakBell();
+        } else if (currentActiveId && currentActiveId !== '-1') {
+          playPeriodStartBell();
+        } else if (lastActivePeriodId && !currentActiveId) {
+          playPeriodEndBell();
+        }
+      }
+      lastActivePeriodId = currentActiveId;
+    }
+
+    function applyCustomThemeVariables() {
+      const root = document.documentElement;
+      root.style.setProperty('--c-bg', config.customBg);
+      root.style.setProperty('--c-card', config.customCard);
+      root.style.setProperty('--c-accent', config.customAccent);
+      root.style.setProperty('--c-text', config.customText);
+    }
+
+    function applyConfig() {
+      applyCustomThemeVariables();
+      document.body.className = `${config.theme} ${config.font}`;
+      
+      document.getElementById('ui-school-name').textContent = config.schoolName;
+      document.getElementById('ui-school-sub').textContent = config.schoolSub;
+      document.getElementById('ui-quote-ar').textContent = `"${config.quoteAr}"`;
+      document.getElementById('ui-quote-en').textContent = `"${config.quoteEn}"`;
+      document.getElementById('ui-banner-flag').textContent = config.bannerFlag || 'تنبيه واستدعاء 📢';
+      document.getElementById('ui-strip-text').textContent = config.stripText;
+
+      constructPeriodsTimeline();
+      renderHorizontalShelf();
+    }
+
+    function toggleCustomColorsSection() {
+      const isCustom = document.getElementById('cfg-theme').value === 'theme-custom';
+      document.getElementById('box-custom-colors').style.display = isCustom ? 'block' : 'none';
+    }
+
+    // 9 نقرات على الساعة لفتح لوحة التحكم
+    let clicks = 0;
+    let clickTimer = null;
+    const trig = document.getElementById('secret-trigger');
+    const modal = document.getElementById('settings-modal');
+
+    trig.addEventListener('click', () => {
+      // تفاعل المستخدم ينشط سياق الصوت
+      getAudioContext();
+      clicks++;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => { clicks = 0; }, 4000);
+      if (clicks >= 9) {
+        clicks = 0;
+        openModal();
+      }
+    });
+
+    function openModal() {
+      document.getElementById('cfg-theme').value = config.theme;
+      document.getElementById('cfg-font').value = config.font;
+      document.getElementById('cfg-custom-bg').value = config.customBg;
+      document.getElementById('cfg-custom-card').value = config.customCard;
+      document.getElementById('cfg-custom-accent').value = config.customAccent;
+      document.getElementById('cfg-custom-text').value = config.customText;
+      document.getElementById('cfg-sound-enabled').checked = config.soundEnabled;
+      document.getElementById('cfg-banner-flag').value = config.bannerFlag;
+      document.getElementById('cfg-strip-text').value = config.stripText;
+      
+      document.getElementById('cfg-mode').value = config.mode;
+      document.getElementById('cfg-manual-period').value = config.manualPeriod;
+      document.getElementById('cfg-has-assembly').checked = config.hasAssembly;
+      document.getElementById('cfg-assembly-duration').value = config.assemblyDuration;
+      document.getElementById('cfg-start-time').value = config.startTime;
+      document.getElementById('cfg-period-duration').value = config.periodDuration;
+      document.getElementById('cfg-break-after').value = config.breakAfter;
+      document.getElementById('cfg-break-duration').value = config.breakDuration;
+      document.getElementById('cfg-has-extra').checked = config.hasExtra;
+      document.getElementById('cfg-extra-name').value = config.extraName;
+      document.getElementById('cfg-extra-duration').value = config.extraDuration;
+      document.getElementById('cfg-school-name').value = config.schoolName;
+      document.getElementById('cfg-school-sub').value = config.schoolSub;
+      document.getElementById('cfg-quote-ar').value = config.quoteAr;
+      document.getElementById('cfg-quote-en').value = config.quoteEn;
+
+      toggleCustomColorsSection();
+      syncFormVisibility();
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function syncFormVisibility() {
+      const mode = document.getElementById('cfg-mode').value;
+      document.getElementById('box-manual-select').style.display = (mode === 'manual') ? 'block' : 'none';
+
+      const hasAss = document.getElementById('cfg-has-assembly').checked;
+      document.getElementById('box-assembly-duration').style.display = hasAss ? 'block' : 'none';
+
+      const hasExtra = document.getElementById('cfg-has-extra').checked;
+      document.getElementById('box-extra-period').style.display = hasExtra ? 'grid' : 'none';
+    }
+
+    document.getElementById('cfg-mode').addEventListener('change', syncFormVisibility);
+    document.getElementById('cfg-has-assembly').addEventListener('change', syncFormVisibility);
+    document.getElementById('cfg-has-extra').addEventListener('change', syncFormVisibility);
+
+    function saveSettings() {
+      config.theme = document.getElementById('cfg-theme').value;
+      config.font = document.getElementById('cfg-font').value;
+      config.customBg = document.getElementById('cfg-custom-bg').value;
+      config.customCard = document.getElementById('cfg-custom-card').value;
+      config.customAccent = document.getElementById('cfg-custom-accent').value;
+      config.customText = document.getElementById('cfg-custom-text').value;
+      config.soundEnabled = document.getElementById('cfg-sound-enabled').checked;
+      config.bannerFlag = document.getElementById('cfg-banner-flag').value;
+      config.stripText = document.getElementById('cfg-strip-text').value;
+
+      config.mode = document.getElementById('cfg-mode').value;
+      config.manualPeriod = document.getElementById('cfg-manual-period').value;
+      config.hasAssembly = document.getElementById('cfg-has-assembly').checked;
+      config.assemblyDuration = Number(document.getElementById('cfg-assembly-duration').value) || 15;
+      config.startTime = document.getElementById('cfg-start-time').value || '07:00';
+      config.periodDuration = Number(document.getElementById('cfg-period-duration').value) || 45;
+      config.breakAfter = Number(document.getElementById('cfg-break-after').value) || 3;
+      config.breakDuration = Number(document.getElementById('cfg-break-duration').value) || 30;
+      config.hasExtra = document.getElementById('cfg-has-extra').checked;
+      config.extraName = document.getElementById('cfg-extra-name').value || 'الحصة السابعة';
+      config.extraDuration = Number(document.getElementById('cfg-extra-duration').value) || 45;
+      config.schoolName = document.getElementById('cfg-school-name').value;
+      config.schoolSub = document.getElementById('cfg-school-sub').value;
+      config.quoteAr = document.getElementById('cfg-quote-ar').value;
+      config.quoteEn = document.getElementById('cfg-quote-en').value;
+
+      localStorage.setItem('campus_wall_v3_settings', JSON.stringify(config));
+      applyConfig();
+      closeModal();
+    }
+
+    // إعلان ملء الشاشة
+    let fsInterval = null;
+    function triggerFullscreenAnnouncement() {
+      const headerText = document.getElementById('cfg-fs-header').value.trim() || 'تنبيه واستدعاء 📢';
+      const bodyText = document.getElementById('cfg-fs-text').value.trim();
+      const mins = Number(document.getElementById('cfg-fs-duration').value) || 5;
+
+      if (!bodyText) {
+        alert('يرجى كتابة نص الإعلان أولاً');
+        return;
+      }
+
+      document.getElementById('fs-display-header').textContent = headerText;
+      document.getElementById('fs-display-text').textContent = bodyText;
+      const overlay = document.getElementById('fullscreen-announcement-overlay');
+      overlay.style.display = 'flex';
+      closeModal();
+
+      let secondsLeft = mins * 60;
+      const timerEl = document.getElementById('fs-countdown-timer');
+
+      clearInterval(fsInterval);
+      fsInterval = setInterval(() => {
+        secondsLeft--;
+        const m = Math.floor(secondsLeft / 60);
+        const s = secondsLeft % 60;
+        timerEl.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+        if (secondsLeft <= 0) {
+          closeFullscreenAnnouncement();
+        }
+      }, 1000);
+    }
+
+    function closeFullscreenAnnouncement() {
+      clearInterval(fsInterval);
+      document.getElementById('fullscreen-announcement-overlay').style.display = 'none';
+    }
+
+    function updateClock() {
+      const now = new Date();
+      let h = now.getHours();
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      document.getElementById('live-clock').innerHTML = `${String(h).padStart(2, '0')}:${m} <span>${ampm}</span>`;
+      
+      const opt = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      document.getElementById('live-date').textContent = now.toLocaleDateString('ar-SA', opt);
+
+      if (config.mode === 'auto') {
+        renderHorizontalShelf();
+      }
+    }
+
+    // تنشيط الصوت من أول نقرة على الصفحة
+    window.addEventListener('click', () => { getAudioContext(); }, { once: true });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('campus_wall_v3_settings');
+      if (saved) {
+        config = { ...defaultConfig, ...JSON.parse(saved) };
+      }
+      applyConfig();
+      setInterval(updateClock, 1000);
+      updateClock();
+    });
+  </script>
+
+
+<script>
+try {
+// 1. استدعاء خط Baloo Bhaijaan 2 الداعم للعربية من Google Fonts
+if (!document.getElementById('font-baloo-bhaijaan-link')) {
+  const fontLink = document.createElement('link');
+  fontLink.id = 'font-baloo-bhaijaan-link';
+  fontLink.rel = 'stylesheet';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap';
+  document.head.appendChild(fontLink);
+}
+
+// 2. ربط الفئة البرمجية في CSS لتطبيقه على الصفحة
+const styleBaloo = document.createElement('style');
+styleBaloo.textContent = `
+  body.font-baloo-bhaijaan { --app-font: 'Baloo Bhaijaan 2', cursive, sans-serif !important; }
+`;
+document.head.appendChild(styleBaloo);
+
+// 3. إضافة خيار الخط إلى القائمة المنسدلة في لوحة التحكم
+const fontSelect = document.getElementById('cfg-font');
+if (fontSelect && !fontSelect.querySelector('option[value="font-baloo-bhaijaan"]')) {
+  const opt = document.createElement('option');
+  opt.value = 'font-baloo-bhaijaan';
+  opt.textContent = 'خط بالو بهيجان العربي (Baloo Bhaijaan 2)';
+  fontSelect.appendChild(opt);
+}
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+
+<script>
+try {
+// ================= 1. محرك النغمات الصوتية الموسع =================
+window.soundEngine = {
+  // دالة المطرقة الميكانيكية لجرس المدرسة الكلاسيكي
+  playSchoolHammerBell: function(ctx, duration = 4.0) {
+    const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const mod = ctx.createOscillator();
+    const modGain = ctx.createGain();
+
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(650, t);
+
+    // تضمين نبضات المطرقة السريعة
+    mod.type = 'square';
+    mod.frequency.setValueAtTime(14, t); // 14 ضربة في الثانية
+    modGain.gain.setValueAtTime(0.5, t);
+
+    mod.connect(gain.gain);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    gain.gain.setValueAtTime(0.3, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+
+    mod.start(t);
+    osc.start(t);
+    mod.stop(t + duration);
+    osc.stop(t + duration);
+  },
+
+  // دالة نغمة زن العميقة (Zen Chime / Singing Bowl)
+  playZenTone: function(ctx, freq, startTime, duration = 5.0) {
+    // نغمة أساسية + نغمات توافقية متداخلة تعطي صدى مهدئ
+    [1, 2.76, 5.4].forEach((harmonic, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq * harmonic, startTime);
+
+      const amp = (idx === 0) ? 0.35 : (0.15 / (idx + 1));
+      gain.gain.setValueAtTime(0, startTime);
+      gain.gain.linearRampToValueAtTime(amp, startTime + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.00001, startTime + duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + duration);
+    });
+  },
+
+  // 1. نغمات بداية الحصة
+  startBells: {
+    westminster: function(ctx) {
+      const t = ctx.currentTime;
+      // نغمات وستمنستر: Sol - Do - Re - Sol
+      createChimeTone(ctx, 392.00, t + 0.0, 3.5, 0.35); // G4
+      createChimeTone(ctx, 523.25, t + 0.8, 3.5, 0.35); // C5
+      createChimeTone(ctx, 587.33, t + 1.6, 3.5, 0.35); // D5
+      createChimeTone(ctx, 392.00, t + 2.4, 4.5, 0.40); // G4
+    },
+    chime: function(ctx) {
+      const t = ctx.currentTime;
+      createChimeTone(ctx, 523.25, t + 0.0, 3.5, 0.35);
+      createChimeTone(ctx, 659.25, t + 0.7, 3.5, 0.35);
+      createChimeTone(ctx, 783.99, t + 1.4, 3.5, 0.35);
+      createChimeTone(ctx, 1046.50, t + 2.1, 4.5, 0.40);
+    },
+    zen: function(ctx) {
+      const t = ctx.currentTime;
+      window.soundEngine.playZenTone(ctx, 432.0, t + 0.0, 5.0); // تردد 432Hz الهادئ
+      window.soundEngine.playZenTone(ctx, 648.0, t + 1.5, 5.0);
+    },
+    hammer: function(ctx) {
+      window.soundEngine.playSchoolHammerBell(ctx, 4.5);
+    }
+  },
+
+  // 2. نغمات نهاية الحصة
+  endBells: {
+    zen: function(ctx) {
+      const t = ctx.currentTime;
+      window.soundEngine.playZenTone(ctx, 528.0, t + 0.0, 5.5);
+      window.soundEngine.playZenTone(ctx, 396.0, t + 1.8, 6.0);
+    },
+    westminster: function(ctx) {
+      const t = ctx.currentTime;
+      createChimeTone(ctx, 659.25, t + 0.0, 3.5, 0.35); // E5
+      createChimeTone(ctx, 523.25, t + 0.8, 3.5, 0.35); // C5
+      createChimeTone(ctx, 587.33, t + 1.6, 3.5, 0.35); // D5
+      createChimeTone(ctx, 392.00, t + 2.4, 4.5, 0.40); // G4
+    },
+    descending: function(ctx) {
+      const t = ctx.currentTime;
+      createChimeTone(ctx, 880.00, t + 0.0, 3.5, 0.35);
+      createChimeTone(ctx, 783.99, t + 0.7, 3.5, 0.35);
+      createChimeTone(ctx, 659.25, t + 1.4, 3.5, 0.35);
+      createChimeTone(ctx, 523.25, t + 2.1, 4.5, 0.40);
+    },
+    hammer: function(ctx) {
+      window.soundEngine.playSchoolHammerBell(ctx, 3.5);
+    }
+  },
+
+  // 3. نغمات الفسحة
+  breakBells: {
+    upbeat: function(ctx) {
+      const t = ctx.currentTime;
+      createChimeTone(ctx, 587.33, t + 0.0, 2.5, 0.30); // D5
+      createChimeTone(ctx, 739.99, t + 0.3, 2.5, 0.30); // F#5
+      createChimeTone(ctx, 880.00, t + 0.6, 2.8, 0.35); // A5
+      createChimeTone(ctx, 1174.66, t + 1.0, 3.5, 0.40); // D6
+      createChimeTone(ctx, 1479.98, t + 1.5, 4.0, 0.35); // F#6
+    },
+    westminster_full: function(ctx) {
+      const t = ctx.currentTime;
+      createChimeTone(ctx, 659.25, t + 0.0, 3.0, 0.35);
+      createChimeTone(ctx, 783.99, t + 0.6, 3.0, 0.35);
+      createChimeTone(ctx, 659.25, t + 1.2, 3.0, 0.35);
+      createChimeTone(ctx, 523.25, t + 1.8, 3.5, 0.35);
+      createChimeTone(ctx, 783.99, t + 2.6, 4.0, 0.40);
+    },
+    zen_deep: function(ctx) {
+      const t = ctx.currentTime;
+      window.soundEngine.playZenTone(ctx, 320.0, t + 0.0, 5.0);
+      window.soundEngine.playZenTone(ctx, 480.0, t + 1.2, 5.5);
+      window.soundEngine.playZenTone(ctx, 640.0, t + 2.4, 6.0);
+    }
+  }
+};
+
+// ================= 2. ربط الدوال العامة بالاختيارات =================
+window.playPeriodStartBell = function() {
+  const ctx = getAudioContext();
+  const choice = config.startBellType || 'westminster';
+  (window.soundEngine.startBells[choice] || window.soundEngine.startBells.westminster)(ctx);
+};
+
+window.playPeriodEndBell = function() {
+  const ctx = getAudioContext();
+  const choice = config.endBellType || 'zen';
+  (window.soundEngine.endBells[choice] || window.soundEngine.endBells.zen)(ctx);
+};
+
+window.playBreakBell = function() {
+  const ctx = getAudioContext();
+  const choice = config.breakBellType || 'upbeat';
+  (window.soundEngine.breakBells[choice] || window.soundEngine.breakBells.upbeat)(ctx);
+};
+
+// ================= 3. إضافة حقول الاختيار في لوحة التحكم =================
+(function injectSoundSelectors() {
+  const soundSec = document.querySelector('.audio-test-grid');
+  if (soundSec && !document.getElementById('cfg-sound-choices-grid')) {
+    const gridDiv = document.createElement('div');
+    gridDiv.id = 'cfg-sound-choices-grid';
+    gridDiv.style.cssText = 'display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px;';
+    
+    gridDiv.innerHTML = `
+      <div class="input-group">
+        <label>نغمة بداية الحصة</label>
+        <select id="cfg-start-bell" class="input-field">
+          <option value="westminster">وستمنستر (Westminster)</option>
+          <option value="chime">جرس تصاعدي (Classic Chime)</option>
+          <option value="zen">أجراس زن (Zen Chime)</option>
+          <option value="hammer">جرس ميكانيكي (School Bell)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>نغمة نهاية الحصة</label>
+        <select id="cfg-end-bell" class="input-field">
+          <option value="zen">أجراس زن هادئة (Zen Chime)</option>
+          <option value="westminster">وستمنستر هادئ (Westminster)</option>
+          <option value="descending">جرس تنازلي (Descending Chime)</option>
+          <option value="hammer">جرس ميكانيكي (School Bell)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>نغمة الفسحة</label>
+        <select id="cfg-break-bell" class="input-field">
+          <option value="upbeat">نغمة حيوية ومرحة (Upbeat Chime)</option>
+          <option value="westminster_full">وستمنستر كامل (Big Ben)</option>
+          <option value="zen_deep">رنين زن ثلاثي (Deep Zen)</option>
+        </select>
+      </div>
+    `;
+
+    soundSec.parentNode.insertBefore(gridDiv, soundSec);
+
+    // توسيع دالتي فتح وحفظ الإعدادات لحفظ النغمات المختارة
+    const origOpenModal = window.openModal;
+    window.openModal = function() {
+      if (typeof origOpenModal === 'function') origOpenModal();
+      document.getElementById('cfg-start-bell').value = config.startBellType || 'westminster';
+      document.getElementById('cfg-end-bell').value = config.endBellType || 'zen';
+      document.getElementById('cfg-break-bell').value = config.breakBellType || 'upbeat';
+    };
+
+    const origSaveSettings = window.saveSettings;
+    window.saveSettings = function() {
+      config.startBellType = document.getElementById('cfg-start-bell').value;
+      config.endBellType = document.getElementById('cfg-end-bell').value;
+      config.breakBellType = document.getElementById('cfg-break-bell').value;
+      if (typeof origSaveSettings === 'function') origSaveSettings();
+    };
+  }
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+          
+        
+
+
+<script>
+try {
+// 1. إدارة النسخة المؤقتة للمعاينة الحية
+let backupConfigBeforeEdit = null;
+
+// التقاط نسخة طبق الأصل عند فتح لوحة التحكم
+const origOpenModal = window.openModal;
+window.openModal = function() {
+  backupConfigBeforeEdit = JSON.parse(JSON.stringify(config));
+  if (typeof origOpenModal === 'function') origOpenModal();
+};
+
+// دالة تطبيق المعاينة الحية اللحظية دون حفظ في التخزين
+window.applyLivePreview = function() {
+  config.theme = document.getElementById('cfg-theme').value;
+  config.font = document.getElementById('cfg-font').value;
+  config.customBg = document.getElementById('cfg-custom-bg').value;
+  config.customCard = document.getElementById('cfg-custom-card').value;
+  config.customAccent = document.getElementById('cfg-custom-accent').value;
+  config.customText = document.getElementById('cfg-custom-text').value;
+  config.schoolName = document.getElementById('cfg-school-name').value;
+  config.schoolSub = document.getElementById('cfg-school-sub').value;
+  config.quoteAr = document.getElementById('cfg-quote-ar').value;
+  config.quoteEn = document.getElementById('cfg-quote-en').value;
+  config.bannerFlag = document.getElementById('cfg-banner-flag').value;
+  config.stripText = document.getElementById('cfg-strip-text').value;
+
+  if (typeof applyConfig === 'function') applyConfig();
+};
+
+// دالة إلغاء التعديلات واستعادة الحالة الأصلية
+window.cancelChanges = function() {
+  if (backupConfigBeforeEdit) {
+    config = JSON.parse(JSON.stringify(backupConfigBeforeEdit));
+    if (typeof applyConfig === 'function') applyConfig();
+  }
+  closeModal();
+};
+
+// 2. تحديث أزرار الإجراءات داخل لوحة التحكم
+(function updateModalButtons() {
+  const saveBtn = document.querySelector('.save-action-btn');
+  if (saveBtn && !document.getElementById('btn-cancel-changes')) {
+    saveBtn.textContent = '✓ تأكيد التغييرات';
+
+    // إنشاء زر الإلغاء
+    const cancelBtn = document.createElement('button');
+    cancelBtn.id = 'btn-cancel-changes';
+    cancelBtn.type = 'button';
+    cancelBtn.textContent = '✕ إلغاء التغييرات';
+    cancelBtn.style.cssText = 'flex:1; padding:15px; border-radius:14px; background:#475569; color:#fff; border:none; font-size:16px; font-weight:800; cursor:pointer; transition:0.2s;';
+    cancelBtn.onclick = window.cancelChanges;
+
+    // وضع الزرين بجانب بعضهما في حاوية مرنة
+    const btnContainer = document.createElement('div');
+    btnContainer.style.cssText = 'display:flex; gap:12px; margin-top:14px;';
+    
+    saveBtn.parentNode.insertBefore(btnContainer, saveBtn);
+    saveBtn.style.marginTop = '0';
+    saveBtn.style.flex = '1';
+    
+    btnContainer.appendChild(saveBtn);
+    btnContainer.appendChild(cancelBtn);
+
+    // ربط أحداث التغيير المباشر بجميع حقول الإعدادات
+    const liveFields = [
+      'cfg-theme', 'cfg-font', 'cfg-custom-bg', 'cfg-custom-card', 
+      'cfg-custom-accent', 'cfg-custom-text', 'cfg-school-name', 
+      'cfg-school-sub', 'cfg-quote-ar', 'cfg-quote-en', 
+      'cfg-banner-flag', 'cfg-strip-text'
+    ];
+
+    liveFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', window.applyLivePreview);
+        el.addEventListener('change', window.applyLivePreview);
+      }
+    });
+  }
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+          
+        
+
+<script>
+try {
+// 1. تحديث تشغيل نغمات بداية الحصة بحسب الاختيار الحالي
+window.playSelectedStartBell = function() {
+  const ctx = getAudioContext();
+  const select = document.getElementById('cfg-start-bell');
+  const choice = select ? select.value : (config.startBellType || 'westminster');
+  if (window.soundEngine && window.soundEngine.startBells[choice]) {
+    window.soundEngine.startBells[choice](ctx);
+  } else if (typeof window.playPeriodStartBell === 'function') {
+    window.playPeriodStartBell();
+  }
+};
+
+// 2. تحديث تشغيل نغمات نهاية الحصة بحسب الاختيار الحالي
+window.playSelectedEndBell = function() {
+  const ctx = getAudioContext();
+  const select = document.getElementById('cfg-end-bell');
+  const choice = select ? select.value : (config.endBellType || 'zen');
+  if (window.soundEngine && window.soundEngine.endBells[choice]) {
+    window.soundEngine.endBells[choice](ctx);
+  } else if (typeof window.playPeriodEndBell === 'function') {
+    window.playPeriodEndBell();
+  }
+};
+
+// 3. تحديث تشغيل نغمات الفسحة بحسب الاختيار الحالي
+window.playSelectedBreakBell = function() {
+  const ctx = getAudioContext();
+  const select = document.getElementById('cfg-break-bell');
+  const choice = select ? select.value : (config.breakBellType || 'upbeat');
+  if (window.soundEngine && window.soundEngine.breakBells[choice]) {
+    window.soundEngine.breakBells[choice](ctx);
+  } else if (typeof window.playBreakBell === 'function') {
+    window.playBreakBell();
+  }
+};
+
+// 4. إعادة توجيه أزرار الاستماع الثلاثة لتشغيل النغمة المختارة
+(function rewireAudioButtons() {
+  const testButtons = document.querySelectorAll('.btn-test-sound');
+  if (testButtons.length >= 3) {
+    testButtons[0].onclick = () => window.playSelectedStartBell();
+    testButtons[1].onclick = () => window.playSelectedEndBell();
+    testButtons[2].onclick = () => window.playSelectedBreakBell();
+  }
+
+  // تشغيل معاينة صوتية فورية بمجرد تغيير القائمة المنسدلة
+  const startSelect = document.getElementById('cfg-start-bell');
+  const endSelect = document.getElementById('cfg-end-bell');
+  const breakSelect = document.getElementById('cfg-break-bell');
+
+  if (startSelect) {
+    startSelect.onchange = () => {
+      config.startBellType = startSelect.value;
+      window.playSelectedStartBell();
+    };
+  }
+
+  if (endSelect) {
+    endSelect.onchange = () => {
+      config.endBellType = endSelect.value;
+      window.playSelectedEndBell();
+    };
+  }
+
+  if (breakSelect) {
+    breakSelect.onchange = () => {
+      config.breakBellType = breakSelect.value;
+      window.playSelectedBreakBell();
+    };
+  }
+})();
+
+// 5. ربط النغمات بزر إلغاء التغييرات لاستعادة النغمات السابقة
+if (typeof window.cancelChanges === 'function') {
+  const prevCancel = window.cancelChanges;
+  window.cancelChanges = function() {
+    prevCancel();
+    const startSelect = document.getElementById('cfg-start-bell');
+    const endSelect = document.getElementById('cfg-end-bell');
+    const breakSelect = document.getElementById('cfg-break-bell');
+    if (startSelect && config.startBellType) startSelect.value = config.startBellType;
+    if (endSelect && config.endBellType) endSelect.value = config.endBellType;
+    if (breakSelect && config.breakBellType) breakSelect.value = config.breakBellType;
+  };
+}
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+
+<script>
+try {
+// إعادة بناء منطق تشغيل الأجراس ليدق جرس النهاية ثم جرس البداية
+(function updateBellSequencing() {
+  // دالة مساعدة لتشغيل صوتين بتسلسل زمني سليم
+  window.playSequentialBells = function(firstBellFn, secondBellFn, delayMs = 3800) {
+    if (typeof firstBellFn === 'function') firstBellFn();
+    if (typeof secondBellFn === 'function') {
+      setTimeout(() => {
+        secondBellFn();
+      }, delayMs);
+    }
+  };
+
+  // استبدال دالة رسم الحصص وفحص الأجراس
+  const originalRender = window.renderHorizontalShelf;
+  
+  window.renderHorizontalShelf = function() {
+    const grid = document.getElementById('periods-grid-shelf');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const now = new Date();
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    let isDayActive = false;
+    let currentActiveId = null;
+
+    periodsTimeline.forEach(item => {
+      let tag = '--';
+      let cls = '';
+
+      if (config.mode === 'manual') {
+        if (config.manualPeriod === '-1') {
+          tag = 'انتهى اليوم';
+          cls = 'done';
+        } else if (config.manualPeriod === item.id) {
+          tag = 'جارية الآن ⚡';
+          cls = 'active';
+          isDayActive = true;
+          currentActiveId = item.id;
+        }
+      } else {
+        if (nowMin >= item.end) {
+          tag = 'انتهت ✓';
+          cls = 'done';
+        } else if (nowMin >= item.start && nowMin < item.end) {
+          const left = item.end - nowMin;
+          tag = `جارية (${left} د)`;
+          cls = 'active';
+          isDayActive = true;
+          currentActiveId = item.id;
+        } else {
+          tag = 'قادمة';
+          isDayActive = true;
+        }
+      }
+
+      if (item.type === 'break' && cls !== 'active') {
+        cls += ' break';
+        if (tag === '--') tag = 'استراحة';
+      }
+
+      const card = document.createElement('div');
+      card.className = `period-card-box ${cls}`;
+      card.innerHTML = `
+        <div class="p-title-wrap">
+          <span class="p-title-prefix">${item.prefix}</span>
+          <span class="p-title-name">${item.name}</span>
+        </div>
+        <div class="p-time">${item.timeText}</div>
+        <div><span class="p-state-tag">${tag}</span></div>
+      `;
+      grid.appendChild(card);
+    });
+
+    const pill = document.getElementById('ui-status-pill');
+    if (pill) {
+      pill.textContent = isDayActive ? 'الدوام جاري الآن' : 'انتهى اليوم الدراسي';
+    }
+
+    // منطق الأجراس المزدوج والشامل
+    if (config.soundEnabled && lastActivePeriodId !== null && currentActiveId !== lastActivePeriodId) {
+      
+      const getEndBell = () => (typeof window.playSelectedEndBell === 'function' ? window.playSelectedEndBell() : window.playPeriodEndBell());
+      const getStartBell = () => (typeof window.playSelectedStartBell === 'function' ? window.playSelectedStartBell() : window.playPeriodStartBell());
+      const getBreakBell = () => (typeof window.playSelectedBreakBell === 'function' ? window.playSelectedBreakBell() : window.playBreakBell());
+
+      // 1. الانتقال إلى الفسحة (جرس نهاية الحصة السابقة ثم نغمة الفسحة)
+      if (currentActiveId === 'break') {
+        window.playSequentialBells(getEndBell, getBreakBell, 3800);
+      }
+      // 2. الانتقال من الفسحة إلى حصة جديدة (جرس بداية الحصة مباشرة)
+      else if (lastActivePeriodId === 'break' && currentActiveId && currentActiveId !== '-1') {
+        getStartBell();
+      }
+      // 3. الانتقال بين حصتين دراسيتين (جرس نهاية الحصة الأولى ثم جرس بداية الحصة التالية)
+      else if (currentActiveId && currentActiveId !== '-1' && lastActivePeriodId && lastActivePeriodId !== '-1') {
+        window.playSequentialBells(getEndBell, getStartBell, 3800);
+      }
+      // 4. أول حدث في اليوم (جرس بداية الحصة أو الطابور فقط)
+      else if (currentActiveId && currentActiveId !== '-1' && (!lastActivePeriodId || lastActivePeriodId === '-1')) {
+        getStartBell();
+      }
+      // 5. نهاية اليوم الدراسي بالكامل
+      else if (lastActivePeriodId && (!currentActiveId || currentActiveId === '-1')) {
+        getEndBell();
+      }
+    }
+
+    lastActivePeriodId = currentActiveId;
+  };
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+
+<script>
+try {
+(function injectExamModuleClean() {
+  // 1. استرجاع أو تهيئة الإعدادات
+  window.config = window.config || {};
+  if (typeof config.examTableEnabled === 'undefined') {
+    config.examTableEnabled = true;
+    config.examList = [
+      { grade: 'أول متوسط', period: 'الحصة 2', subject: 'رياضيات' },
+      { grade: 'ثاني متوسط', period: 'الحصة 3', subject: 'لغتي الخالدة' },
+      { grade: 'ثالث متوسط', period: 'الحصة 4', subject: 'علوم' }
+    ];
+  }
+
+  // 2. معالجة وتثبيت توزيع الأزرار السفلية بعيداً عن إعلان ملء الشاشة
+  const modalSheet = document.querySelector('.modal-sheet');
+  const allSaveButtons = document.querySelectorAll('.save-action-btn');
+  const actualSaveBtn = allSaveButtons[allSaveButtons.length - 1]; // زر الحفظ السفلي الحقيقي
+  let cancelBtn = document.getElementById('btn-cancel-changes');
+
+  if (actualSaveBtn && modalSheet) {
+    let bottomContainer = document.getElementById('proper-modal-footer-actions');
+    if (!bottomContainer) {
+      bottomContainer = document.createElement('div');
+      bottomContainer.id = 'proper-modal-footer-actions';
+      bottomContainer.style.cssText = 'display:flex; gap:12px; margin-top:20px; width:100%;';
+      modalSheet.appendChild(bottomContainer);
+    }
+
+    actualSaveBtn.textContent = '✓ تأكيد التغييرات';
+    actualSaveBtn.type = 'button';
+    actualSaveBtn.onclick = function() {
+      if (typeof window.saveSettings === 'function') window.saveSettings();
+    };
+    actualSaveBtn.style.cssText = 'flex:1; padding:15px; border-radius:14px; background:var(--accent, #f59e0b); color:#fff; border:none; font-size:16px; font-weight:800; cursor:pointer; margin:0;';
+    bottomContainer.appendChild(actualSaveBtn);
+
+    if (!cancelBtn) {
+      cancelBtn = document.createElement('button');
+      cancelBtn.id = 'btn-cancel-changes';
+      cancelBtn.type = 'button';
+      cancelBtn.textContent = '✕ إلغاء التغييرات';
+      cancelBtn.style.cssText = 'flex:1; padding:15px; border-radius:14px; background:#475569; color:#fff; border:none; font-size:16px; font-weight:800; cursor:pointer;';
+      cancelBtn.onclick = function() {
+        if (typeof window.cancelChanges === 'function') window.cancelChanges();
+        else closeModal();
+      };
+    }
+    bottomContainer.appendChild(cancelBtn);
+  }
+
+  // 3. تطبيق تقسيم الثلثين والثلث على كارت التحفيز الحقيقي
+  window.renderExamAndQuoteLayout = function() {
+    const inspireCard = document.querySelector('.inspire-center-card');
+    if (!inspireCard) return;
+
+    let flexWrapper = document.getElementById('exam-inspire-flex-wrapper');
+    if (!flexWrapper) {
+      flexWrapper = document.createElement('div');
+      flexWrapper.id = 'exam-inspire-flex-wrapper';
+      flexWrapper.style.cssText = 'display:flex; gap:1.4vw; width:100%; height:35vh; align-items:stretch; transition:all 0.3s ease;';
+      inspireCard.parentNode.insertBefore(flexWrapper, inspireCard);
+      flexWrapper.appendChild(inspireCard);
+    }
+
+    let examCard = document.getElementById('ui-exam-board-card');
+    if (!examCard) {
+      examCard = document.createElement('div');
+      examCard.id = 'ui-exam-board-card';
+      examCard.style.cssText = 'flex:2; background:var(--card-bg); border:2px solid var(--card-border); border-radius:24px; padding:1.4vh 1.8vw; display:flex; flex-direction:column; justify-content:space-around; box-shadow:0 8px 25px rgba(0,0,0,0.06); box-sizing:border-box;';
+      flexWrapper.insertBefore(examCard, inspireCard);
+    }
+
+    if (config.examTableEnabled) {
+      examCard.style.display = 'flex';
+      inspireCard.style.flex = '1';
+      inspireCard.style.width = 'auto';
+      inspireCard.style.height = '100%';
+
+      const rows = (config.examList || []).map(item => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--modal-input-bg, rgba(255,255,255,0.06)); padding:0.9vh 1.4vw; border-radius:14px; border:1px solid var(--modal-border, rgba(255,255,255,0.1));">
+          <span style="font-weight:700; font-size:2vh; color:var(--text-main);">${item.grade}</span>
+          <span style="background:var(--accent); color:#ffffff; padding:0.3vh 1.2vw; border-radius:99px; font-size:1.6vh; font-weight:700;">${item.period}</span>
+          <span style="font-weight:800; font-size:2.2vh; color:var(--accent);">${item.subject}</span>
+        </div>
+      `).join('');
+
+      examCard.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--card-border); padding-bottom:0.6vh; margin-bottom:0.6vh;">
+          <div style="font-size:2.2vh; font-weight:800; display:flex; align-items:center; gap:8px;">
+            <span>📝</span>
+            <span>جدول الاختبارات الشهرية اليوم</span>
+          </div>
+          <span style="font-size:1.3vh; font-weight:700; padding:4px 14px; border-radius:99px; background:rgba(0,0,0,0.08); color:var(--text-sub);">التقييم المستمر</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.8vh; flex:1; justify-content:center;">
+          ${rows || '<div style="text-align:center; opacity:0.7; font-size:1.8vh;">لا توجد اختبارات مسجلة اليوم</div>'}
+        </div>
+      `;
+    } else {
+      examCard.style.display = 'none';
+      inspireCard.style.flex = '100%';
+      inspireCard.style.width = '100%';
+      inspireCard.style.height = '35vh';
+    }
+  };
+
+  // 4. بناء بطاقة إعدادات الاختبارات المستقلة داخل لوحة التحكم
+  function injectCleanExamControls() {
+    if (document.getElementById('cfg-exam-clean-box')) return;
+    const footer = document.getElementById('proper-modal-footer-actions') || actualSaveBtn;
+    if (!footer || !footer.parentNode) return;
+
+    const box = document.createElement('div');
+    box.id = 'cfg-exam-clean-box';
+    box.style.cssText = 'background:var(--modal-input-bg); border:2px solid var(--modal-border); border-radius:18px; padding:16px; margin:16px 0;';
+
+    box.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+        <label style="font-weight:800; font-size:15px; color:var(--accent); display:flex; align-items:center; gap:8px; cursor:pointer;" for="cfg-chk-exam-state">
+          <span>📝</span>
+          <span>تفعيل جدول الاختبارات الشهرية (ثلثين المساحة)</span>
+        </label>
+        <input type="checkbox" id="cfg-chk-exam-state" ${config.examTableEnabled ? 'checked' : ''} style="width:20px; height:20px; cursor:pointer; accent-color:var(--accent);">
+      </div>
+
+      <div id="cfg-exam-inputs-wrapper" style="display:${config.examTableEnabled ? 'flex' : 'none'}; flex-direction:column; gap:10px; margin-top:14px;">
+        <div id="cfg-exam-rows-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+        <button type="button" id="cfg-btn-add-row" style="padding:10px; border-radius:12px; background:transparent; border:2px dashed var(--accent); color:var(--accent); font-weight:800; cursor:pointer; font-size:13px;">
+          + إضافة صف اختبار جديد
+        </button>
+      </div>
+    `;
+
+    footer.parentNode.insertBefore(box, footer);
+
+    const chk = document.getElementById('cfg-chk-exam-state');
+    const inputsWrap = document.getElementById('cfg-exam-inputs-wrapper');
+    const rowsList = document.getElementById('cfg-exam-rows-list');
+    const addBtn = document.getElementById('cfg-btn-add-row');
+
+    function createEditRow(item = { grade: '', period: '', subject: '' }) {
+      const row = document.createElement('div');
+      row.className = 'clean-exam-edit-row';
+      row.style.cssText = 'display:flex; gap:8px; align-items:center;';
+      row.innerHTML = `
+        <input type="text" placeholder="الصف (مثال: أول متوسط)" value="${item.grade}" class="inp-g input-field" style="flex:1.2; padding:8px 12px; font-size:13px;">
+        <input type="text" placeholder="الحصة (مثال: الحصة 2)" value="${item.period}" class="inp-p input-field" style="flex:1; padding:8px 12px; font-size:13px;">
+        <input type="text" placeholder="المادة (مثال: رياضيات)" value="${item.subject}" class="inp-s input-field" style="flex:1.2; padding:8px 12px; font-size:13px;">
+        <button type="button" class="del-btn" style="background:#ef4444; color:#fff; border:none; border-radius:10px; width:34px; height:36px; cursor:pointer; font-weight:bold; font-size:14px;">✕</button>
+      `;
+
+      row.querySelector('.del-btn').onclick = () => {
+        row.remove();
+        syncData();
+      };
+      row.querySelectorAll('input').forEach(inp => {
+        inp.oninput = syncData;
+      });
+      return row;
+    }
+
+    function renderAllRows() {
+      rowsList.innerHTML = '';
+      (config.examList || []).forEach(item => rowsList.appendChild(createEditRow(item)));
+    }
+
+    function syncData() {
+      const rows = rowsList.querySelectorAll('.clean-exam-edit-row');
+      config.examList = Array.from(rows).map(r => ({
+        grade: r.querySelector('.inp-g').value,
+        period: r.querySelector('.inp-p').value,
+        subject: r.querySelector('.inp-s').value
+      }));
+      window.renderExamAndQuoteLayout();
+    }
+
+    chk.onchange = () => {
+      config.examTableEnabled = chk.checked;
+      inputsWrap.style.display = chk.checked ? 'flex' : 'none';
+      window.renderExamAndQuoteLayout();
+    };
+
+    addBtn.onclick = () => {
+      rowsList.appendChild(createEditRow());
+      syncData();
+    };
+
+    renderAllRows();
+  }
+
+  // 5. ربط الحفظ والفتح المباشر والتنفيذ الأولي
+  window.renderExamAndQuoteLayout();
+  injectCleanExamControls();
+
+  const originalOpenModal = window.openModal;
+  window.openModal = function() {
+    if (typeof originalOpenModal === 'function') originalOpenModal();
+    injectCleanExamControls();
+    window.renderExamAndQuoteLayout();
+  };
+
+  const originalSaveSettings = window.saveSettings;
+  window.saveSettings = function() {
+    const chk = document.getElementById('cfg-chk-exam-state');
+    if (chk) config.examTableEnabled = chk.checked;
+    if (typeof originalSaveSettings === 'function') originalSaveSettings();
+    window.renderExamAndQuoteLayout();
+  };
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+          
+        
+
+<script>
+try {
+(function polishExamAndQuoteLayout() {
+  window.renderExamAndQuoteLayout = function() {
+    const inspireCard = document.querySelector('.inspire-center-card');
+    if (!inspireCard) return;
+
+    // 1. حاوية رئيسية أفقية تجمع البطاقتين بنسبة الثلثين والثلث
+    let flexWrapper = document.getElementById('exam-inspire-flex-wrapper');
+    if (!flexWrapper) {
+      flexWrapper = document.createElement('div');
+      flexWrapper.id = 'exam-inspire-flex-wrapper';
+      flexWrapper.style.cssText = 'display:flex; flex-direction:row; gap:1.2vw; width:100%; height:35vh; max-height:35vh; align-items:stretch; box-sizing:border-box;';
+      inspireCard.parentNode.insertBefore(flexWrapper, inspireCard);
+      flexWrapper.appendChild(inspireCard);
+    } else {
+      flexWrapper.style.display = 'flex';
+      flexWrapper.style.flexDirection = 'row';
+      flexWrapper.style.height = '35vh';
+    }
+
+    // 2. بطاقة الاختبارات بنسبة 68%
+    let examCard = document.getElementById('ui-exam-board-card');
+    if (!examCard) {
+      examCard = document.createElement('div');
+      examCard.id = 'ui-exam-board-card';
+      flexWrapper.insertBefore(examCard, inspireCard);
+    }
+
+    examCard.style.cssText = `
+      flex: 0 0 68%;
+      width: 68%;
+      height: 100%;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1.4vh 1.6vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+      box-sizing: border-box;
+      overflow: hidden;
+    `;
+
+    // 3. ضبط بطاقة التحفيز بنسبة 32%
+    inspireCard.style.cssText = `
+      flex: 0 0 calc(32% - 1.2vw);
+      width: calc(32% - 1.2vw);
+      height: 100%;
+      margin: 0;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 24px;
+      padding: 1.4vh 1.6vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-sizing: border-box;
+    `;
+
+    const arQuote = inspireCard.querySelector('.quote-big-ar');
+    const enQuote = inspireCard.querySelector('.quote-big-en');
+    if (arQuote) {
+      arQuote.style.fontSize = '2.4vh';
+      arQuote.style.lineHeight = '1.4';
+      arQuote.style.marginBottom = '0.8vh';
+    }
+    if (enQuote) {
+      enQuote.style.fontSize = '1.5vh';
+    }
+
+    const isEnabled = config.examTableEnabled !== false;
+
+    if (isEnabled) {
+      examCard.style.display = 'flex';
+
+      const validList = (config.examList || []).filter(item => item.grade || item.subject);
+      const listToRender = validList.length > 0 ? validList : [
+        { grade: 'أول متوسط', period: 'الحصة 2', subject: 'رياضيات' },
+        { grade: 'ثاني متوسط', period: 'الحصة 3', subject: 'لغتي الخالدة' }
+      ];
+
+      const rowsHtml = listToRender.slice(0, 4).map(item => `
+        <div style="display:grid; grid-template-columns: 1.2fr auto 1.2fr; align-items:center; background:var(--modal-input-bg, rgba(255,255,255,0.04)); padding:0.8vh 1.2vw; border-radius:14px; border:1.5px solid var(--modal-border, rgba(255,255,255,0.08));">
+          <div style="font-weight:800; font-size:2vh; color:var(--text-main); text-align:right;">${item.grade || '--'}</div>
+          <div style="background:var(--accent); color:#ffffff; padding:0.25vh 1.2vw; border-radius:99px; font-size:1.5vh; font-weight:800; text-align:center; min-width:85px;">${item.period || '--'}</div>
+          <div style="font-weight:900; font-size:2.1vh; color:var(--accent); text-align:left;">${item.subject || '--'}</div>
+        </div>
+      `).join('');
+
+      examCard.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--card-border); padding-bottom:0.8vh; margin-bottom:0.8vh;">
+          <div style="font-size:2.2vh; font-weight:800; display:flex; align-items:center; gap:8px; color:var(--text-main);">
+            <span>📝</span>
+            <span>جدول الاختبارات الشهرية اليوم</span>
+          </div>
+          <span style="font-size:1.3vh; font-weight:700; padding:4px 14px; border-radius:99px; background:rgba(0,0,0,0.08); color:var(--text-sub);">التقييم المستمر</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.8vh; flex:1; justify-content:space-evenly;">
+          ${rowsHtml}
+        </div>
+      `;
+    } else {
+      examCard.style.display = 'none';
+      inspireCard.style.flex = '0 0 100%';
+      inspireCard.style.width = '100%';
+      if (arQuote) arQuote.style.fontSize = '3.6vh';
+      if (enQuote) enQuote.style.fontSize = '2vh';
+    }
+  };
+
+  window.renderExamAndQuoteLayout();
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+          
+        
+
+<script>
+try {
+(function fixExamBoxAndAddDayTitle() {
+  window.config = window.config || {};
+  if (typeof config.examDayTitle === 'undefined') {
+    config.examDayTitle = 'اليوم';
+  }
+
+  // 1. إعادة بناء صندوق التحكم مع خانة تخصيص اليوم وتفعيل الحذف الدائم
+  function setupCleanControls() {
+    const box = document.getElementById('cfg-exam-clean-box');
+    if (!box) return;
+
+    box.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px; margin-bottom:12px;">
+        <label style="font-weight:800; font-size:15px; color:var(--accent); display:flex; align-items:center; gap:8px; cursor:pointer;" for="cfg-chk-exam-state">
+          <span>📝</span>
+          <span>تفعيل جدول الاختبارات الشهرية (ثلثين المساحة)</span>
+        </label>
+        <input type="checkbox" id="cfg-chk-exam-state" ${config.examTableEnabled ? 'checked' : ''} style="width:22px; height:22px; cursor:pointer; accent-color:var(--accent);">
+      </div>
+
+      <div id="cfg-exam-inputs-wrapper" style="display:${config.examTableEnabled ? 'flex' : 'none'}; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <label style="font-size:13px; font-weight:700; color:var(--text-sub); white-space:nowrap;">تخصيص اليوم / العنوان:</label>
+          <input type="text" id="cfg-exam-day-title" class="input-field" value="${config.examDayTitle || 'اليوم'}" placeholder="مثال: يوم الاثنين أو اليوم" style="flex:1; padding:8px 12px; font-size:13px;">
+        </div>
+
+        <div id="cfg-exam-rows-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+        
+        <button type="button" id="cfg-btn-add-row" style="padding:10px; border-radius:12px; background:rgba(255,255,255,0.05); border:2px dashed var(--accent); color:var(--accent); font-weight:800; cursor:pointer; font-size:13px; transition:0.2s;">
+          + إضافة صف اختبار جديد
+        </button>
+      </div>
+    `;
+
+    const chk = document.getElementById('cfg-chk-exam-state');
+    const inputsWrap = document.getElementById('cfg-exam-inputs-wrapper');
+    const rowsList = document.getElementById('cfg-exam-rows-list');
+    const addBtn = document.getElementById('cfg-btn-add-row');
+    const dayInput = document.getElementById('cfg-exam-day-title');
+
+    function syncAllData() {
+      config.examTableEnabled = chk.checked;
+      config.examDayTitle = dayInput.value.trim() || 'اليوم';
+      const rows = rowsList.querySelectorAll('.clean-exam-edit-row');
+      config.examList = Array.from(rows).map(r => ({
+        grade: r.querySelector('.inp-g').value,
+        period: r.querySelector('.inp-p').value,
+        subject: r.querySelector('.inp-s').value
+      }));
+      if (typeof window.renderExamAndQuoteLayout === 'function') {
+        window.renderExamAndQuoteLayout();
+      }
+    }
+
+    // تفعيل الحذف المباشر (Event Delegation) لحل مشكلة الزر الأحمر نهائياً
+    rowsList.addEventListener('click', function(e) {
+      if (e.target && e.target.classList.contains('del-btn')) {
+        e.target.closest('.clean-exam-edit-row').remove();
+        syncAllData();
+      }
+    });
+
+    rowsList.addEventListener('input', syncAllData);
+    dayInput.addEventListener('input', syncAllData);
+
+    chk.onchange = () => {
+      inputsWrap.style.display = chk.checked ? 'flex' : 'none';
+      syncAllData();
+    };
+
+    function appendRowElement(item = { grade: '', period: '', subject: '' }) {
+      const row = document.createElement('div');
+      row.className = 'clean-exam-edit-row';
+      row.style.cssText = 'display:flex; gap:8px; align-items:center;';
+      row.innerHTML = `
+        <button type="button" class="del-btn" style="background:#ef4444; color:#fff; border:none; border-radius:10px; width:36px; height:36px; cursor:pointer; font-weight:bold; font-size:14px; flex-shrink:0;">✕</button>
+        <input type="text" placeholder="المادة (مثال: رياضيات)" value="${item.subject || ''}" class="inp-s input-field" style="flex:1; padding:8px 10px; font-size:13px;">
+        <input type="text" placeholder="الحصة (مثال: الحصة 2)" value="${item.period || ''}" class="inp-p input-field" style="flex:1; padding:8px 10px; font-size:13px;">
+        <input type="text" placeholder="الصف (مثال: أول متوسط)" value="${item.grade || ''}" class="inp-g input-field" style="flex:1.2; padding:8px 10px; font-size:13px;">
+      `;
+      rowsList.appendChild(row);
+    }
+
+    addBtn.onclick = () => {
+      appendRowElement();
+      syncAllData();
+    };
+
+    // تعبئة الصفوف الحالية
+    rowsList.innerHTML = '';
+    const currentList = (config.examList && config.examList.length > 0) ? config.examList : [
+      { grade: 'أول متوسط', period: 'الحصة 3', subject: 'لغتي' }
+    ];
+    currentList.forEach(item => appendRowElement(item));
+  }
+
+  // 2. تحديث دالة الرسم لإظهار العنوان المخصص لليوم
+  const prevRender = window.renderExamAndQuoteLayout;
+  window.renderExamAndQuoteLayout = function() {
+    if (typeof prevRender === 'function') prevRender();
+
+    const examCard = document.getElementById('ui-exam-board-card');
+    if (!examCard || !config.examTableEnabled) return;
+
+    const titleEl = examCard.querySelector('div[style*="font-size:2.2vh"]');
+    if (titleEl) {
+      const dayTxt = config.examDayTitle ? ` ${config.examDayTitle}` : ' اليوم';
+      titleEl.innerHTML = `<span>📝</span><span>جدول الاختبارات الشهرية (${dayTxt})</span>`;
+    }
+  };
+
+  setupCleanControls();
+  window.renderExamAndQuoteLayout();
+
+  // ربط إعادة التهيئة عند فتح اللوحة
+  const origOpen = window.openModal;
+  window.openModal = function() {
+    if (typeof origOpen === 'function') origOpen();
+    setupCleanControls();
+  };
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+          
+        
+
+<script>
+try {
+(function fixExamTitleSpacing() {
+  const prevRender = window.renderExamAndQuoteLayout;
+  window.renderExamAndQuoteLayout = function() {
+    if (typeof prevRender === 'function') prevRender();
+
+    const examCard = document.getElementById('ui-exam-board-card');
+    if (!examCard || !config.examTableEnabled) return;
+
+    const titleEl = examCard.querySelector('div[style*="font-size:2.2vh"]');
+    if (titleEl) {
+      const cleanTitle = (config.examDayTitle || 'اليوم').trim();
+      titleEl.innerHTML = `<span>📝</span><span>جدول الاختبارات الشهرية (${cleanTitle})</span>`;
+    }
+  };
+
+  if (typeof window.renderExamAndQuoteLayout === 'function') {
+    window.renderExamAndQuoteLayout();
+  }
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+
+
+<script>
+try {
+(function restoreLivePreviewAndActionButtons() {
+  // 1. أخذ نسخة احتياطية من الإعدادات قبل التعديل
+  let backupConfigBeforeEdit = null;
+
+  const origOpenModal = window.openModal;
+  window.openModal = function() {
+    backupConfigBeforeEdit = JSON.parse(JSON.stringify(config));
+    if (typeof origOpenModal === 'function') origOpenModal();
+    setupActionsAndListeners();
+  };
+
+  // 2. دالة المعاينة اللحظية الحية
+  window.applyLivePreview = function() {
+    const themeEl = document.getElementById('cfg-theme');
+    const fontEl = document.getElementById('cfg-font');
+    const bgEl = document.getElementById('cfg-custom-bg');
+    const cardEl = document.getElementById('cfg-custom-card');
+    const accentEl = document.getElementById('cfg-custom-accent');
+    const textEl = document.getElementById('cfg-custom-text');
+    const schoolEl = document.getElementById('cfg-school-name');
+    const subEl = document.getElementById('cfg-school-sub');
+    const qArEl = document.getElementById('cfg-quote-ar');
+    const qEnEl = document.getElementById('cfg-quote-en');
+    const flagEl = document.getElementById('cfg-banner-flag');
+    const stripEl = document.getElementById('cfg-strip-text');
+
+    if (themeEl) config.theme = themeEl.value;
+    if (fontEl) config.font = fontEl.value;
+    if (bgEl) config.customBg = bgEl.value;
+    if (cardEl) config.customCard = cardEl.value;
+    if (accentEl) config.customAccent = accentEl.value;
+    if (textEl) config.customText = textEl.value;
+    if (schoolEl) config.schoolName = schoolEl.value;
+    if (subEl) config.schoolSub = subEl.value;
+    if (qArEl) config.quoteAr = qArEl.value;
+    if (qEnEl) config.quoteEn = qEnEl.value;
+    if (flagEl) config.bannerFlag = flagEl.value;
+    if (stripEl) config.stripText = stripEl.value;
+
+    if (typeof applyConfig === 'function') applyConfig();
+    if (typeof renderExamAndQuoteLayout === 'function') renderExamAndQuoteLayout();
+  };
+
+  // 3. دالة إلغاء التغييرات والرجوع للحالة السابقة
+  window.cancelChanges = function() {
+    if (backupConfigBeforeEdit) {
+      config = JSON.parse(JSON.stringify(backupConfigBeforeEdit));
+      if (typeof applyConfig === 'function') applyConfig();
+      if (typeof renderExamAndQuoteLayout === 'function') renderExamAndQuoteLayout();
+    }
+    closeModal();
+  };
+
+  // 4. ربط المستمعات وأزرار الإجراءات
+  function setupActionsAndListeners() {
+    // ربط الحقول الحية
+    const liveFields = [
+      'cfg-theme', 'cfg-font', 'cfg-custom-bg', 'cfg-custom-card',
+      'cfg-custom-accent', 'cfg-custom-text', 'cfg-school-name',
+      'cfg-school-sub', 'cfg-quote-ar', 'cfg-quote-en',
+      'cfg-banner-flag', 'cfg-strip-text'
+    ];
+
+    liveFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && !el.dataset.liveBound) {
+        el.addEventListener('input', window.applyLivePreview);
+        el.addEventListener('change', window.applyLivePreview);
+        el.dataset.liveBound = 'true';
+      }
+    });
+
+    // ضبط زر الإلغاء وتأكيد التغييرات
+    const cancelBtn = document.getElementById('btn-cancel-changes');
+    if (cancelBtn) {
+      cancelBtn.onclick = window.cancelChanges;
+    }
+
+    const saveBtn = document.querySelector('#proper-modal-footer-actions .save-action-btn');
+    if (saveBtn) {
+      saveBtn.onclick = function() {
+        if (typeof window.saveSettings === 'function') window.saveSettings();
+      };
+    }
+  }
+
+  setupActionsAndListeners();
+})();
+} catch(err) { console.error("Injected Script Error:", err); }
+</script>
+</body></html>
