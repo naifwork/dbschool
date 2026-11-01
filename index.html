@@ -668,9 +668,10 @@
     <span class="banner-content-text" id="ui-strip-text">تذكير لجميع الطلاب: موعد إغلاق التسجيل في الأولمبياد الوطني للعلوم يوم الثلاثاء القادم.</span>
   </footer>
 
-  <!-- ================= توقيع المصمم الجديد ================= -->
-  <div class="designer-credit-bar">
-    بواسطة نايف الشومر
+  <!-- ================= توقيع المصمم المحمي بطبقة أمان ================= -->
+  <div class="designer-credit-bar" id="locked-author-signature" style="position: relative; user-select: none; -webkit-user-select: none; pointer-events: none;">
+    <span id="author-text-node">بواسطة نايف الشومر</span>
+    <div style="position: absolute; inset: 0; background: transparent; z-index: 9999; cursor: default;"></div>
   </div>
 
   <!-- ================= إعلان ملء الشاشة ================= -->
@@ -2424,6 +2425,405 @@ try {
 
 <script>
 try {
+/* ================= 1. نظام القفل الذاتي ومفتاح تشغيل المنصة ================= */
+(function lockCoreAuthorEngine() {
+  // شفرة التحقق لاسم المصمم (بواسطة نايف الشومر)
+  const _authSignature = '\u0628\u0648\u0627\u0633\u0637\u0629\u0020\u0646\u0627\u064a\u0641\u0020\u0627\u0644\u0634\u0648\u0645\u0631';
+  
+  function enforceSignature() {
+    let host = document.getElementById('locked-author-signature');
+    if (!host) {
+      host = document.createElement('div');
+      host.id = 'locked-author-signature';
+      host.className = 'designer-credit-bar';
+      host.style.cssText = 'position:relative;user-select:none;-webkit-user-select:none;pointer-events:none;';
+      document.body.appendChild(host);
+    }
+    let tag = document.getElementById('author-text-node');
+    if (!tag) {
+      tag = document.createElement('span');
+      tag.id = 'author-text-node';
+      host.appendChild(tag);
+    }
+    if (tag.textContent !== _authSignature) {
+      tag.textContent = _authSignature;
+    }
+  }
+
+  enforceSignature();
+
+  // فحص تكامل النظام المستمر: في حال التلاعب بالاسم تتوقف المنصة فوراً
+  setInterval(() => {
+    const tag = document.getElementById('author-text-node');
+    if (!tag || tag.textContent !== _authSignature) {
+      document.body.innerHTML = '<div style="display:flex;height:100vh;align-items:center;justify-content:center;background:#000;color:#ef4444;font-family:sans-serif;font-size:24px;font-weight:bold;">Security Warning: System Integrity Compromised</div>';
+    } else {
+      enforceSignature();
+    }
+  }, 1000);
+})();
+
+/* ================= 2. لوحة المفاتيح المبسطة المتطورة (محلية ومستقرة 100%) ================= */
+(function setupProTouchKeyboard() {
+  let activeInput = null;
+  let currentMode = 'ar'; // 'ar', 'en_lower', 'en_upper', 'symbols'
+  let longPressTimer = null;
+  let isLongPress = false;
+
+  const altMapAr = {
+    'ا': ['أ', 'إ', 'آ', 'ء', 'ٱ'],
+    'و': ['ؤ', 'ۥ'],
+    'ي': ['ئ', 'ى', 'ي'],
+    'ه': ['ة', 'ه'],
+    'ت': ['ة', 'ت'],
+    'ء': ['ئ', 'ؤ', 'أ', 'إ', 'آ'],
+    'ح': ['خ', 'ج'],
+    'د': ['ذ'],
+    'ر': ['ز'],
+    'س': ['ش'],
+    'ص': ['ض'],
+    'ط': ['ظ'],
+    'ع': ['غ'],
+    'ف': ['ڤ', 'ف'],
+    'ك': ['گ', 'ك'],
+    'ل': ['لا', 'لأ', 'لإ', 'لآ']
+  };
+
+  const rowsAr = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+    ['ض', 'ص', 'ث', 'ق', 'ف', 'غ', 'ع', 'ه', 'خ', 'ح', 'ج', 'د'],
+    ['ش', 'س', 'ي', 'ب', 'ل', 'ا', 'ت', 'ن', 'م', 'ك', 'ط'],
+    ['ئ', 'ء', 'ؤ', 'ر', 'لا', 'ى', 'ة', 'و', 'ز', 'ظ', 'ذ']
+  ];
+
+  const rowsEnLower = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm', '-', '_', '.']
+  ];
+
+  const rowsEnUpper = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '-', '_', '.']
+  ];
+
+  const rowsSymbols = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+    ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'],
+    ['-', '_', '=', '+', '[', ']', '{', '}', ';', ':'],
+    ['"', "'", ',', '<', '>', '/', '?', '\\', '|', '~']
+  ];
+
+  // الزر العائم المفرد للكيبورد المبسط
+  const floatBtn = document.createElement('button');
+  floatBtn.id = 'manual-kb-toggle-btn';
+  floatBtn.type = 'button';
+  floatBtn.innerHTML = '⌨️ كيبورد مبسط';
+  floatBtn.style.cssText = `
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background: var(--accent, #f59e0b);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 10px 20px;
+    border-radius: 99px;
+    font-size: 15px;
+    font-weight: 800;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    z-index: 10000000;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.1s, background 0.2s;
+  `;
+  document.body.appendChild(floatBtn);
+
+  // حاوية الكيبورد المبسط المنبثقة
+  const kbWrap = document.createElement('div');
+  kbWrap.id = 'pro-onscreen-keyboard-panel';
+  kbWrap.style.cssText = `
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0b1120;
+    border-top: 3px solid var(--accent, #f59e0b);
+    padding: 8px 10px 12px 10px;
+    z-index: 10000001;
+    box-shadow: 0 -12px 40px rgba(0,0,0,0.8);
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    user-select: none;
+    touch-action: manipulation;
+  `;
+  document.body.appendChild(kbWrap);
+
+  const popover = document.createElement('div');
+  popover.style.cssText = `
+    display: none;
+    position: fixed;
+    background: #1e293b;
+    border: 2px solid var(--accent, #f59e0b);
+    border-radius: 12px;
+    padding: 6px;
+    gap: 6px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    z-index: 10000005;
+  `;
+  document.body.appendChild(popover);
+
+  function hidePopover() {
+    popover.style.display = 'none';
+    popover.innerHTML = '';
+  }
+
+  function showAltPopover(targetBtn, alts) {
+    hidePopover();
+    const rect = targetBtn.getBoundingClientRect();
+    popover.style.display = 'flex';
+    popover.style.top = `${rect.top - 58}px`;
+    popover.style.left = `${Math.max(10, rect.left - 40)}px`;
+
+    alts.forEach(altChar => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = altChar;
+      b.style.cssText = `
+        background: #334155;
+        color: #fff;
+        border: 1px solid #475569;
+        border-radius: 8px;
+        min-width: 42px;
+        height: 42px;
+        font-size: 18px;
+        font-weight: 800;
+        cursor: pointer;
+      `;
+      b.onclick = (e) => {
+        e.stopPropagation();
+        insertText(altChar);
+        hidePopover();
+      };
+      popover.appendChild(b);
+    });
+  }
+
+  function createKey(label, onClick, opts = {}) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.innerHTML = label;
+    btn.style.cssText = `
+      background: ${opts.bg || '#1e293b'};
+      color: ${opts.color || '#ffffff'};
+      border: 1px solid #334155;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      min-width: 38px;
+      height: 44px;
+      padding: 0 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: ${opts.flex || '1'};
+      transition: all 0.1s;
+      ${opts.extra || ''}
+    `;
+
+    if (opts.char && altMapAr[opts.char] && currentMode === 'ar') {
+      const startPress = () => {
+        isLongPress = false;
+        longPressTimer = setTimeout(() => {
+          isLongPress = true;
+          showAltPopover(btn, altMapAr[opts.char]);
+        }, 450);
+      };
+
+      const cancelPress = () => {
+        clearTimeout(longPressTimer);
+      };
+
+      btn.addEventListener('pointerdown', startPress);
+      btn.addEventListener('pointerup', (e) => {
+        cancelPress();
+        if (!isLongPress) {
+          hidePopover();
+          onClick();
+        }
+      });
+      btn.addEventListener('pointerleave', cancelPress);
+    } else {
+      btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        hidePopover();
+        btn.style.transform = 'scale(0.92)';
+        setTimeout(() => { btn.style.transform = 'none'; }, 100);
+        onClick();
+      });
+    }
+
+    return btn;
+  }
+
+  function renderKeyboard() {
+    kbWrap.innerHTML = '';
+    hidePopover();
+
+    let rowsData = [];
+    if (currentMode === 'ar') rowsData = rowsAr;
+    else if (currentMode === 'en_lower') rowsData = rowsEnLower;
+    else if (currentMode === 'en_upper') rowsData = rowsEnUpper;
+    else if (currentMode === 'symbols') rowsData = rowsSymbols;
+
+    rowsData.forEach((rowChars, rIdx) => {
+      const rowDiv = document.createElement('div');
+      rowDiv.style.cssText = 'display:flex; gap:4px; width:100%; max-width:880px;';
+
+      if ((currentMode === 'en_lower' || currentMode === 'en_upper') && rIdx === 3) {
+        const isUp = (currentMode === 'en_upper');
+        rowDiv.appendChild(createKey(isUp ? '⇧ CAP' : '⇩ cap', () => {
+          currentMode = isUp ? 'en_lower' : 'en_upper';
+          renderKeyboard();
+        }, { flex: '1.2', bg: isUp ? 'var(--accent, #f59e0b)' : '#334155' }));
+      }
+
+      rowChars.forEach(ch => {
+        const isNum = /^[0-9]$/.test(ch);
+        rowDiv.appendChild(createKey(ch, () => insertText(ch), {
+          char: ch,
+          bg: isNum ? '#172554' : '#1e293b',
+          color: isNum ? '#fbbf24' : '#ffffff'
+        }));
+      });
+
+      kbWrap.appendChild(rowDiv);
+    });
+
+    const bottomRow = document.createElement('div');
+    bottomRow.style.cssText = 'display:flex; gap:5px; width:100%; max-width:880px;';
+
+    const langLabel = currentMode === 'ar' ? 'English 🌐' : 'عربي 🌐';
+    bottomRow.appendChild(createKey(langLabel, () => {
+      currentMode = (currentMode === 'ar') ? 'en_lower' : 'ar';
+      renderKeyboard();
+    }, { flex: '1.2', bg: '#4338ca' }));
+
+    const symLabel = currentMode === 'symbols' ? 'حروف' : '?123';
+    bottomRow.appendChild(createKey(symLabel, () => {
+      currentMode = (currentMode === 'symbols') ? 'ar' : 'symbols';
+      renderKeyboard();
+    }, { flex: '1', bg: '#0891b2' }));
+
+    bottomRow.appendChild(createKey('مسافة (Space)', () => insertText(' '), { flex: '3.5', bg: '#334155' }));
+
+    if (currentMode === 'ar') {
+      bottomRow.appendChild(createKey('َ ُ ِ ْ', () => {
+        showAltPopover(bottomRow, ['َ', 'ُ', 'ِ', 'ْ', 'ً', 'ٌ', 'ٍ', 'ّ']);
+      }, { flex: '0.8', bg: '#1e293b', color: '#38bdf8' }));
+    }
+
+    bottomRow.appendChild(createKey('⌫ حذف', () => deleteChar(), { flex: '1.1', bg: '#dc2626' }));
+    bottomRow.appendChild(createKey('مسح', () => clearField(), { flex: '0.7', bg: '#7f1d1d' }));
+    bottomRow.appendChild(createKey('إغلاق ✕', () => hideKeyboard(), { flex: '0.9', bg: '#059669' }));
+
+    kbWrap.appendChild(bottomRow);
+  }
+
+  function getTargetInput() {
+    if (activeInput && document.contains(activeInput)) return activeInput;
+    const all = document.querySelectorAll('#settings-modal input[type="text"], #settings-modal input[type="number"], #settings-modal textarea');
+    return all[0] || null;
+  }
+
+  function insertText(txt) {
+    const inp = getTargetInput();
+    if (!inp) return;
+    const start = inp.selectionStart ?? inp.value.length;
+    const end = inp.selectionEnd ?? inp.value.length;
+    inp.value = inp.value.substring(0, start) + txt + inp.value.substring(end);
+    inp.selectionStart = inp.selectionEnd = start + txt.length;
+    dispatchEvents(inp);
+  }
+
+  function deleteChar() {
+    const inp = getTargetInput();
+    if (!inp || !inp.value) return;
+    const start = inp.selectionStart ?? inp.value.length;
+    const end = inp.selectionEnd ?? inp.value.length;
+    if (start === end) {
+      if (start > 0) {
+        inp.value = inp.value.substring(0, start - 1) + inp.value.substring(end);
+        inp.selectionStart = inp.selectionEnd = start - 1;
+      }
+    } else {
+      inp.value = inp.value.substring(0, start) + inp.value.substring(end);
+      inp.selectionStart = inp.selectionEnd = start;
+    }
+    dispatchEvents(inp);
+  }
+
+  function clearField() {
+    const inp = getTargetInput();
+    if (!inp) return;
+    inp.value = '';
+    dispatchEvents(inp);
+  }
+
+  function dispatchEvents(inp) {
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    inp.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  function showKeyboard() {
+    renderKeyboard();
+    kbWrap.style.display = 'flex';
+    floatBtn.innerHTML = '✕ إخفاء المبسط';
+    floatBtn.style.background = '#475569';
+  }
+
+  function hideKeyboard() {
+    kbWrap.style.display = 'none';
+    hidePopover();
+    floatBtn.innerHTML = '⌨️ كيبورد مبسط';
+    floatBtn.style.background = 'var(--accent, #f59e0b)';
+  }
+
+  floatBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (kbWrap.style.display === 'flex') {
+      hideKeyboard();
+    } else {
+      showKeyboard();
+    }
+  });
+
+  document.addEventListener('focusin', (e) => {
+    if (e.target && e.target.closest('#settings-modal') && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+      activeInput = e.target;
+    }
+  });
+
+  const origOpenModal = window.openModal;
+  window.openModal = function() {
+    if (typeof origOpenModal === 'function') origOpenModal();
+    floatBtn.style.display = 'block';
+  };
+
+  const origCloseModal = window.closeModal;
+  window.closeModal = function() {
+    hideKeyboard();
+    floatBtn.style.display = 'none';
+    if (typeof origCloseModal === 'function') origCloseModal();
+  };
+})();
+
 (function restoreLivePreviewAndActionButtons() {
   // 1. أخذ نسخة احتياطية من الإعدادات قبل التعديل
   let backupConfigBeforeEdit = null;
